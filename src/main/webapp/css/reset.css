@@ -4,17 +4,18 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, small, strong, dl, dt, dd,
   font-size: 100%;
 }
 em, strong, i {
-  font-style: normal;
+  font-style:normal;
 }
 h1, h2, h3, h4, h5, h6 {
-  font-weight: normal;
+  font-weight: bold;
 }
 body {
   line-height: 1;
-  font-size: 12px;
-  font-family: "Microsoft Yahei";
+  font-size: 15px;
+  font-family:"Microsoft Yahei";
   color: #333;
   background-color: #fff;
+  font-weight: normal;
 }
 ul, ol {
   list-style: none;
