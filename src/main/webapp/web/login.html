@@ -110,11 +110,11 @@
         <div id="hhh">
             <div id="ff" > <h2 style="text-align: center;font-family:'RuiHei Bauhaus Kr' ;margin-top: 50px">登陆!!!</h2>
 
-                <form class="form-horizontal" action="#"method="post" style="width: 100%;height: 100%" >
+                <form class="form-horizontal" style="width: 100%;height: 100%" >
                     <div class="form-group" style="margin-top:30px">
 
                         <div class="col-sm-10">
-                            <input type="text" name="username" class="form-control" id="d1" placeholder="用户名"style="width: 80%;height:40px;margin-left: 60px;border-radius: 10px;background-color: rgba(255,255,255,0.5);font-family:'RuiHei Bauhaus Kr' ;font-size: medium">
+                            <input type="text" name="username" class="form-control" id="username" placeholder="用户名"style="width: 80%;height:40px;margin-left: 60px;border-radius: 10px;background-color: rgba(255,255,255,0.5);font-family:'RuiHei Bauhaus Kr' ;font-size: medium">
                             <div id="span"><span id="sp"></span></div>
 
                         </div>
@@ -123,13 +123,13 @@
                     <div class="form-group"style="margin-top: 25px">
 
                         <div class="col-sm-10">
-                            <input type="password"name="pwd" class="form-control" id="inputPassword3" placeholder="密码"  style="width:80%;height:40px;margin-left: 60px;border-radius: 10px;background-color: rgba(255,255,255,0.5);font-family:'RuiHei Bauhaus Kr';font-size: medium ">
+                            <input type="password"name="password" class="form-control" id="password" placeholder="密码"  style="width:80%;height:40px;margin-left: 60px;border-radius: 10px;background-color: rgba(255,255,255,0.5);font-family:'RuiHei Bauhaus Kr';font-size: medium ">
                         </div>
                     </div>
 
                     <div class="form-group" style="margin-top: 30px">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit"  style="height:40px;margin-left: 24%;width: 100px;;border-radius: 15px;background-color: rgba(255,255,153,0.7);color: #2b669a ;font-family:'RuiHei Bauhaus Kr' ;font-size: medium;font-weight: bold">点击登陆</button>
+                            <button type="button" id="log" style="height:40px;margin-left: 24%;width: 100px;;border-radius: 15px;background-color: rgba(255,255,153,0.7);color: #2b669a ;font-family:'RuiHei Bauhaus Kr' ;font-size: medium;font-weight: bold;font-size: larger">起飞!</button>
                         </div>
                     </div><div style="margin-left:95px;font-family:'RuiHei Bauhaus Kr' "> <u ><button type="button" class="btn" style="background-color: rgba(255,255,255,0);color:/* #bce8f1*/white;font-size: large;font-weight: bold" onclick="location.href='/user/reg'">还没有账号?点击注册</button></u></div>
 
@@ -140,7 +140,129 @@
 </div>
 </body>
 <script>
+    //给登录按钮添加点击事件
+$("#log").click(function () {
+    //获取输入的用户名和密码
+    var username=$("#username").val();
+    var password=$("#password").val();
+    //发送Ajax;
+    $.post("/user/toLog",{"username":username,"password":password},function (data) {
+
+        if(data.state==200){
+            alert(data.msg);
+            //跳转登录
+            window.location.href="../web/index.html"
+        }else {
+            alert(data.msg);
+            //刷新表单
+            // window.location.reload(true);
+        }
+
+
+    })
+
+})
+</script>
+<script>
+    window.alert = alert;
+    function alert(data, callback) { //回调函数
+        var alert_bg = document.createElement('div');
+        alert_box = document.createElement('div'),
+            alert_text = document.createElement('div'),
+            alert_btn = document.createElement('button'),
+            textNode = document.createTextNode(data ? data : ''),
+            btnText = document.createTextNode('明白啦!');
+
+        // 控制样式
+        css(alert_bg, {
+            'position': 'fixed',
+            'top': '190px',
+            'left': '720px',
+            'right': '720px',
+            'bottom': '600px',
+            'background-color': 'rgba(0, 0, 0, 0.5)',
+            'z-index': '999999999',
+            'border-radius': '15%',
+            'background-image':'url(../images/picture/05.jpg)',
+            // 'background-size':'550px,250px',
+            // 'background-position':'center',
+            'background-size':'cover',
+            'border-bottom-left-radius':'80px',
+            'border-top-left-radius':'10px',
+
+
+        });
+
+        css(alert_box, {
+            'height':'70px',
+            'width': '100%',
+            'max-width': '100%',
+            'font-size': '28px',
+            'text-align': 'center',
+            'background-color': 'rgba(255,255,255,0.7)',
+            // 'border-bottom-left-radius': '43px',
+            'position': 'absolute',
+            'top': '40%',
+            'left': '49.7%',
+            'transform': 'translate(-50%, -50%)',
+            // 'font-family':'RuiHei Bauhaus Kr',
+            'font-weight':'bold',
+            'font-family':'宋体',
+            'background-size':'500px,500px',
+            'background-position':'center',
+
+
+        });
+
+        css(alert_text, {
+            'padding': '20px 15px',
+
+            'color': 'rgba(255,100,0,0.7)',
+        });
+
+        css(alert_btn, {
+            'padding': '8px 7px',
+            'color': 'rgba(255,255,255,0.9)',
+            'font-weight': '600',
+            'cursor': 'pointer',
+            'background-color': 'rgba(10,120,10,0.7)',
+            'border-radius': '20%',
+            'height':'45px',
+            'width': '110px',
+            'margin-top':'15px',
+            'font-family':'RuiHei Bauhaus Kr',
+            'font-size': '23px',
+            'margin-left':'305px',
+
+        });
+
+        // 内部结构套入
+        alert_text.appendChild(textNode);
+        alert_btn.appendChild(btnText);
+        alert_box.appendChild(alert_text);
+        alert_box.appendChild(alert_btn);
+        alert_bg.appendChild(alert_box);
+
+        // 整体显示到页面内
+        document.getElementsByTagName('body')[0].appendChild(alert_bg);
+
+        // 确定绑定点击事件删除标签
+        alert_btn.onclick = function() {
+            alert_bg.parentNode.removeChild(alert_bg);
+            if (typeof callback =='function') {
+                callback(); //回调
+            }
+        }
+    }
+
+    function css(targetObj, cssObj) {
+        var str = targetObj.getAttribute("style") ? targetObj.getAttribute('style') : '';
+        for (var i in cssObj) {
+            str += i + ':' + cssObj[i] + ';';
+        }
+        targetObj.style.cssText = str;
+    }
+
 
 </script>
-
 </html>

@@ -28,6 +28,8 @@
 <!--    拦截器-->
     <!--不拦截静态资源-->
     <mvc:default-servlet-handler/>
+    <!-- 静态资源映射 -->
+
     <!--过滤静态资源-->
 
     <!-- 静态资源映射 -->
@@ -39,4 +41,5 @@
 <!--    <mvc:resources mapping="/bootstrap3/**" location="/bootstrap3/"/>-->
 
     <!--上传文件配置-->
+
 </beans>
