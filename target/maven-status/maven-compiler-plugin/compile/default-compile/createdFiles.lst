@@ -1,1 +1,5 @@
+fhq\controller\AdminController.class
+fhq\service\serviceImpl\AdminServiceImpl.class
 fhq\controller\UserController.class
+fhq\mapper\AdminMapper.class
+fhq\service\AdminService.class

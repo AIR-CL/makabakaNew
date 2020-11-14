@@ -16,6 +16,24 @@ public class User implements Serializable {
     private String email;
     private String sex;//性别
     private String tel;
+    private Integer loPh;//最低充值金额
+    private Integer hiPh;//最高金额
+
+    public Integer getLoPh() {
+        return loPh;
+    }
+
+    public void setLoPh(Integer loPh) {
+        this.loPh = loPh;
+    }
+
+    public Integer getHiPh() {
+        return hiPh;
+    }
+
+    public void setHiPh(Integer hiPh) {
+        this.hiPh = hiPh;
+    }
 
     public Integer getUserId() {
         return userId;
