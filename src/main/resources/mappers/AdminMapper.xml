@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 映射文件，存放SQL
+	namespace是映射文件(多个mapper文件)的唯一标志
+-->
+<mapper namespace="fhq.mapper.AdminMapper">
+    <!--管理员查询用户-->
+
+    <select id="findAllUsers" resultType="fhq.pojo.User">
+        select user_id,user_name,user_vip,push_money from tb_user ;
+    </select>
+    <!--模糊查询-->
+    <select id="findUsersLike" resultType="fhq.pojo.User" parameterType="User">
+        select user_id,user_name,user_vip,push_money from tb_user
+        <where>
+            <if test="userId!=null and ''!=userId">
+                and user_id =#{userId}
+            </if>
+            <if test="userName!=null and ''!=userName">
+                and user_name like concat("%",#{userName},"%")
+            </if>
+            <if test="userVip!=null and ''!=userVip">
+                and user_vip=#{userVip}
+            </if>
+            <if test="loPh !=null and ''!=loPh and hiPh !=null and ''!=hiPh">
+                and push_money between #{loPh} and #{hiPh}
+            </if>
+            <if test="loPh !=null and ''!=loPh and hiPh =null and ''=hiPh">
+                and push_money &gt;#{loPh}
+            </if>
+            <if test="hiPh !=null and ''!=hiPh and loPh =null and ''=loPh">
+                and push_money &lt;#{hiPh}
+            </if>
+        </where>
+    </select>
+
+    <!--信息修改-->
+    <update id="updateUser" parameterType="User">
+        update tb_user set user_vip=#{userVip},push_money=#{pushMoney} where user_id=#{userId}
+    </update>
+
+    <!--用户删除-->
+    <delete id="deleteUser" parameterType="Integer">
+        delete from tb_user where user_id=#{id}
+    </delete>
+</mapper>
