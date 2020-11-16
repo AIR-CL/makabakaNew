@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -49,19 +50,19 @@ public class UserServiceImpl implements UserService {
         //对参数进行判断
         if (username==null||"".equals(username)){
             map.put("state",100);
-            map.put("msg","用户名不能为空");
+            map.put("msg","用户名不能为空! (︶︿︶)");
             return  map;
         }
         if (password==null||"".equals(password)){
             map.put("state",100);
-            map.put("msg","密码不能为空");
+            map.put("msg","密码不能为空! (︶︿︶)");
             return  map;
         }
         //根据用户名查询当前用户是否存在
         User u = userMapper.findUserByUserName(username);
         if (u!=null){
             map.put("state",100);
-            map.put("msg","该用户已经存在");
+            map.put("msg","该用户已经存在! (︶︿︶)");
             return map;
         }else {
             //执行注册
@@ -81,10 +82,10 @@ public class UserServiceImpl implements UserService {
             int row = userMapper.regUser(user);
             if (row>=1){
                 map.put("state",200);
-                map.put("msg","注册成功");
+                map.put("msg","注册成功!!! ╮(￣▽ ￣)╭");
             }else {
                 map.put("state",100);
-                map.put("msg","注册失败");
+                map.put("msg","注册失败! (×_×)");
             }
             return  map;
         }
@@ -92,24 +93,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> toLog(String username, String password) {
+    public Map<String, Object> toLog(String username, String password, HttpServletRequest req) {
         Map<String,Object> map=new HashMap<>();
         //对参数进行判断
         if (username==null||"".equals(username)){
             map.put("state",100);
-            map.put("msg","用户名不能为空");
+            map.put("msg","用户名不能为空! (︶︿︶)");
             return  map;
         }
         if (password==null||"".equals(password)){
             map.put("state",100);
-            map.put("msg","密码不能为空");
+            map.put("msg","密码不能为空! (︶︿︶)");
             return  map;
         }
         //根据用户名查询当前用户是否存在
         User u = userMapper.findUserByUserName(username);
         if (u==null){
             map.put("state",100);
-            map.put("msg","请先注册");
+            map.put("msg","请先注册! (︶︿︶)");
             return map;
         }
             //获取用户的盐值
@@ -118,12 +119,16 @@ public class UserServiceImpl implements UserService {
             String md5Password = getMD5Password(password, salt);
             User user = userMapper.loginCheck(username, md5Password);
             if (user!=null){
+                map.put("username",username);
                 map.put("state",200);
-                map.put("msg","登陆成功");
+                map.put("msg","登陆成功!!! ╮(￣▽ ￣)╭ ");
+                //将用户名绑定到session中
+                req.getSession().setAttribute("username",user.getUserName());
+                req.getSession().setAttribute("salt",user.getSalt());
                 return map;
             }else{
                 map.put("state",100);
-                map.put("msg","用户名或密码错误");
+                map.put("msg","用户名或密码错误! (︶︿︶)");
                 return map;
             }
 

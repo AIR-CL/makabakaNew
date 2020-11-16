@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
@@ -28,6 +29,21 @@ public class UserController {
     public String toLogPage(){
         return "web/login";
     }
+    //跳转主页面
+    @GetMapping("/index")
+    public String toIndexPage(){
+        return "web/index";
+    }
+//    跳转用户中心
+    @GetMapping("/userCenter")
+    public String toUserCenterPage(){ return "web/userCenter";}
+    //跳转播放页面
+    @GetMapping("/broadcast")
+    public String toBoardcastPage(){ return "web/broadcast";}
+    //跳转头像修改
+//    @GetMapping("/faceModify")
+//    public String toFaceUpdate(){ return "web/broadcast#tab_3";}
+
     @PostMapping("/checkUsername")
     @ResponseBody//将返回值转成json数据
     public Map<String,Object> checkUsername(String username){
@@ -49,8 +65,8 @@ public class UserController {
     //处理登陆
     @PostMapping("toLog")
     @ResponseBody
-    public Map<String,Object> toLog(String username,String password){
-        Map<String, Object> map = userService.toLog(username, password);
+    public Map<String,Object> toLog(String username,String password,HttpServletRequest req){
+        Map<String, Object> map = userService.toLog(username, password,req);
         return map;
     }
     @GetMapping("/toindex")

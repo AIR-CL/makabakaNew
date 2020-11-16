@@ -26,6 +26,16 @@
         <property name="suffix" value=".html"></property>
     </bean>
 <!--    拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+<!--            需要拦截那些请求-->
+            <mvc:mapping path="/user/index"/>
+<!--            放行请求-->
+            <mvc:exclude-mapping path="/user/log"/>
+
+            <bean id="loginIntercepter" class="fhq.intercepter.LoginIntercepter"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <!--不拦截静态资源-->
     <mvc:default-servlet-handler/>
     <!-- 静态资源映射 -->

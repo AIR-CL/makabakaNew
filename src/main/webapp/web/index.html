@@ -58,9 +58,9 @@
           </div>
           <div class="header-top__user">
             <div class="login-box">
-              <a href="login.html">登陆</a>
+              <a href="/user/log">登陆</a>
               <span></span>
-              <a href="register.html">注册</a>
+              <a href="/user/reg">注册</a>
             </div>
             <div class="user-post">
               <a href="#" class="link">投 稿</a>
@@ -70,12 +70,13 @@
                 <a href="#" class="create">创作中心</a>
               </div>
             </div>
-            <div class="login-box"><a href="#">玛卡巴卡会员</a></div>
+            <div class="login-box"><a href="/user/broadcast">玛卡巴卡会员</a></div>
+            <span id="sp" style="color: white"></span>
             <div class="user-post" clsaa="link" style="border-radius: 100%;width: 68px;height: 67px;background-color: #333333">  <div  class="user-post" clsaa="link" style="border-radius: 100%;background-image: url(../images/picture/04.jpg);background-position:center;background-size:90px;width: 60px;height: 60px;margin-left: 2px;margin-top: 2px"></div>
 
             <div class="user-post__hover header-hover" style="margin-top: 20px;margin-right:-75px">
-              <a href="#" class="post">头像上传</a>
-              <a href="#" class="manage">信息设置</a>
+              <a href="../web/userCenter.html" class="shoucang">我的收藏</a>
+              <a href="/user/userCenter" class="manage">信息设置</a>
               <a href="#" class="create">会员中心</a>
             </div>
             </div>
@@ -650,4 +651,28 @@
 <!--  <%&#45;&#45;         //izumi红色上衣女&#45;&#45;%>-->
 <!--  <%&#45;&#45;         //hibiki女高中生&#45;&#45;%>-->
 <!--  <%&#45;&#45;         //hijiki黑猫&#45;&#45;%>-->
-</body></html>
+</body>
+<script>
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  //将获取得到的cookie值
+var cookie = getCookie("username");
+
+  $("#sp").html(cookie);
+
+
+</script>
+</html>

@@ -94,6 +94,7 @@
 <title>Title</title>
 <script src="../resources/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="../resources/bootstrap-3.3.7-dist/js/jquery-1.9.1.min.js"></script>
+<script src="../resources/layer/layer.js"></script>
 <link rel="stylesheet" href="../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 
 
@@ -149,6 +150,15 @@
 
 
 <script>
+// layer.prompt({
+//     "title":"请输入报告名字"，
+// 　　　　　　　　　　　　yes:function(){alert()},   //就是点击确定按钮的时候执行的操作；
+//                   cancel:function(){}, //就是点击取消的时候执行的操作；
+//                   end:function(){} //就是层在销毁的时候（等同于confirm结束的时候）
+//
+//                    },function(value, index, elem){
+//                   layer.close(index); //关闭对话框
+//     )
 
     //给用户名添加失去焦点事件
     $("#username").blur(function () {
@@ -183,15 +193,21 @@
            success:function (obj) { //回调函数
 
                if(obj.state==200){
-                   alert(obj.msg);
-                   //跳转登录
-                   window.location.href="../web/login.html"
-                   // window.location.href="/user/log"
-               }else {
-                   alert(obj.msg);
+                   alert(obj.msg,function () {
 
-                   //刷新表单
-                   // window.location.reload(true);
+                       //跳转登录
+                       window.location.href="../web/login.html"
+                       // window.location.href="/user/log"
+                   });
+
+               }else {
+                   alert(obj.msg,function () {
+                       //刷新表单
+                       window.location.reload(true);
+                   });
+
+
+
                    // return true;
                }
 
@@ -201,6 +217,7 @@
 
 
 </script>
+
 <script>
     window.alert = alert;
     function alert(data, callback) { //回调函数
