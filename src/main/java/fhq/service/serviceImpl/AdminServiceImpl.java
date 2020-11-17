@@ -35,18 +35,22 @@ public class AdminServiceImpl implements AdminService {
         return usersLike;
     }
     //用户修改
-    public Map<String,Object> updateUserInfo(Integer userId, Integer userVip, Integer pushMoney) {
+    public Map<String,Object> updateUserInfo(Integer userId,String userName, Integer userVip, Integer pushMoney) {
         //数据封装
         User user=new User();
         user.setUserId(userId);
+        user.setUserName(userName);
         user.setUserVip(userVip);
         user.setPushMoney(pushMoney);
+        System.out.println(user);
         int i = adminMapper.updateUser(user);
         Map<String,Object> map=new HashMap<String, Object>();
-         if (i >=0) {
+         if (i >0) {
+             map.put("state",200);
             map.put("msg","修改成功");
             return map;
          }else {
+             map.put("state",201);
              map.put("msg","修改失败");
              return map;
          }
@@ -59,7 +63,7 @@ public class AdminServiceImpl implements AdminService {
 
         Map<String,Object> map=new HashMap<String, Object>();
         int i = adminMapper.deleteUser(id);
-        if (i >= 0) {
+        if (i > 0) {
             map.put("msg","删除成功");
             return map;
         }else {

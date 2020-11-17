@@ -11,7 +11,7 @@ public interface AdminService {
     //用户模糊查询
      List<User> findUsersLikeInfo(Integer userId,String userName,Integer userVip,Integer loPh,Integer hiPh);
     //用户修改
-     Map<String,Object> updateUserInfo(Integer userId,Integer userVip, Integer pushMoney);
+     Map<String,Object> updateUserInfo(Integer userId,String userName,Integer userVip, Integer pushMoney);
      //根据id删除用户
     Map<String,Object> deleteUserInfo(Integer id);
 }

@@ -24,13 +24,13 @@
             <if test="userVip!=null and ''!=userVip">
                 and user_vip=#{userVip}
             </if>
-            <if test="loPh !=null and ''!=loPh and hiPh !=null and ''!=hiPh">
+            <if test="loPh!=null and ''!=loPh and hiPh!=null and ''!=hiPh">
                 and push_money between #{loPh} and #{hiPh}
             </if>
-            <if test="loPh !=null and ''!=loPh and hiPh =null and ''=hiPh">
+            <if test="loPh!=null and ''!=loPh ">
                 and push_money &gt;#{loPh}
             </if>
-            <if test="hiPh !=null and ''!=hiPh and loPh =null and ''=loPh">
+            <if test="hiPh!=null and ''!=hiPh ">
                 and push_money &lt;#{hiPh}
             </if>
         </where>
@@ -38,7 +38,19 @@
 
     <!--信息修改-->
     <update id="updateUser" parameterType="User">
-        update tb_user set user_vip=#{userVip},push_money=#{pushMoney} where user_id=#{userId}
+        update tb_user
+        <set>
+            <if test="userName!=null and ''!=userName">
+               user_name=#{userName},
+            </if>
+            <if test="userVip!=null and ''!=userVip">
+                user_vip=#{userVip},
+            </if>
+            <if test="pushMoney!=null and ''!=pushMoney">
+                push_money=#{pushMoney}
+            </if>
+        </set>
+        where user_id=#{userId}
     </update>
 
     <!--用户删除-->

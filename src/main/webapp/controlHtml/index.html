@@ -30,6 +30,9 @@
   <!-- summernote -->
   <link rel="stylesheet" href="../controlHtml/plugins/summernote/summernote-bs4.min.css">
 </head>
+<style>
+  td{text-align: center}
+</style>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -128,21 +131,52 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
-    <button id="selectBtn">查询</button>
-    <form id="selectForm">
-    id：<input type="text" id="userId" name="userId"/>
-    姓名：<input type="text" id="userName" name="userName"/>
-    vip等级：<input type="text" id="userVip" name="userVip"/>
-    充值金额下限：<input type="text" id="loPh" name="loPh"/>
-    充值金额上限：<input type="text" id="hiPh" name="hiPh"/>
-    </form>
-
+    <table align="center">
+      <tr>
+        <td>id：<input type="text" id="userId" name="userId"/></td>
+        <td>姓名：<input type="text" id="userName" name="userName"/></td>
+        <td>vip等级：<input type="text" id="userVip" name="userVip"/></td>
+        <td>充值金额下限：<input type="text" id="loPh" name="loPh"/></td>
+        <td>充值金额上限：<input type="text" id="hiPh" name="hiPh"/></td>
+        <td><button id="selectBtn">查询</button></td>
+      </tr>
+    </table>
     <table class="table table table-striped table-bordered table-hover" id="tb1">
 
 
       <script type="text/javascript">
         var tb1=document.getElementById("tb1");
-        /*查询所有*/
+        $(document).ready(function () {
+          $.ajax({
+            type:"get",
+            url:"/admin/findUsers",
+            dateType:"json",
+            success:function (data) {
+
+              var str="<tr>\n" +
+                "      <td>用户id</td>\n" +
+                "      <td>用户名</td>\n" +
+                "      <td>VIP等级</td>\n" +
+                "      <td>充值金额</td>\n" +
+                "    </tr>";
+              for (i in data) {
+                str += "<tr>" +
+                  "<td>" + data[i].userId + "</td>" +
+                  "<td>" + data[i].userName + "</td>" +
+                  "<td>" + data[i].userVip + "</td>" +
+                  "<td>" + data[i].pushMoney + "</td>" +
+                  "</tr>";
+              }
+              tb1.innerHTML = str;
+            },
+            error:function () {
+              alert("查询失败")
+            }
+
+          })
+
+        })
+                /*查询所有*/
         /*$("#selectBtn").click(function () {
 
           $.ajax({
@@ -188,7 +222,6 @@
           url:"/admin/findUsersLike",
           success:function (users) {
             var str="<tr>\n" +
-              "      <td>用户id</td>\n" +
               "      <td>用户名</td>\n" +
               "      <td>VIP等级</td>\n" +
               "      <td>充值金额</td>\n" +
@@ -196,13 +229,25 @@
               "    </tr>";
             for (i in users) {
               str += "<tr>" +
-                "<td id='userName'>" + users[i].userId + "</td>" +
-                "<td>" + users[i].userName + "</td>" +
-                "<td>" + users[i].userVip + "</td>" +
-                "<td>" + users[i].pushMoney + "</td>" +
+                "<td>userName</td>" +
+                "<td>userVip</td>" +
+                "<td>pushMoney</td>" +
+                "<td><button onclick='toUpdateUser(#{userId})'>修改</button><button onclick='deleteUser(#{id})'>删除</button></a></td>"+
                 "</tr>";
+              str=str.replace("#{userId}",users[i].userId);
+              str=str.replace("userName",users[i].userName);
+              str=str.replace("userVip",users[i].userVip);
+              str=str.replace("pushMoney",users[i].pushMoney);
+              str=str.replace("#{id}",users[i].userId);
+
+
+
+
             }
+
             tb1.innerHTML = str;
+
+
 
           },
           error:function () {
@@ -210,8 +255,37 @@
           }
         })
         })
+        /*删除用户*/
+      function  deleteUser(id) {
+       alert(id);
+          $.ajax({
+            url:"/admin/deleteUser",
+            data:{id: id},
+            dataType: "json",
+            type: "post",
+            success:function (data) {
+              if (data.state == 200) {
+                alert(data.msg);
+              } else {
+                alert(data.msg);
+              }
+            },
 
+          })
 
+        }
+        function  toUpdateUser(userId) {
+          /*alert(userId);*/
+          $.ajax({
+            url:"/admin/toUpdateUserPage",
+            type:"get",
+            data:{userId:userId},
+            success:function (msg) {
+           window.location.href="/admin/toUpdateUserPage?userId="+userId;
+
+            }
+          })
+        }
 
 
       </script>

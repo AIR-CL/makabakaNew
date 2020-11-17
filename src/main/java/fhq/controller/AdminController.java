@@ -1,5 +1,6 @@
 package fhq.controller;
 
+
 import fhq.pojo.User;
 import fhq.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -38,22 +41,34 @@ public class AdminController {
     public List<User> findUsersLike(Integer userId,String userName,Integer userVip,Integer loPh,Integer hiPh){
 
         List<User> users = adminService.findUsersLikeInfo(userId, userName, userVip, loPh,hiPh);
+
         return users;
     }
 
     //用户修改
-    @PostMapping("/updateUser")
+   @PostMapping("/updateUser")
     @ResponseBody
-    public Map<String,Object> updateUser(Integer userId, Integer userVip, Integer pushMoney){
-        Map<String, Object> map = adminService.updateUserInfo(userId, userVip, pushMoney);
-
-        return map;
-    }
+    public Map<String,Object> updateUser(String userName,Integer userVip,Integer pushMoney,Integer userId){
+       Map<String, Object> map = adminService.updateUserInfo(userId, userName, userVip, pushMoney);
+       return map;
+   }
     //用户删除
     @PostMapping("/deleteUser")
     @ResponseBody
     public  Map<String,Object> deleteUser(Integer id){
+
         Map<String, Object> map = adminService.deleteUserInfo(id);
         return map;
     }
+
+    //跳转到修改页面
+    @GetMapping("toUpdateUserPage")
+    public String toUpdatePage(Integer userId, HttpSession session){
+        //设定一个seesion用于发送ajax请求
+        session.setAttribute("userId",userId);
+
+        return "/controlHtml/updatePage";
+
+    }
+
 }
