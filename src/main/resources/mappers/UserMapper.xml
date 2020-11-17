@@ -5,6 +5,6 @@
 <!-- 映射文件，存放SQL
 	namespace是映射文件(多个mapper文件)的唯一标志
 -->
-<mapper namespace="fhq.UserMapper">
+<mapper namespace="fhq.mapper.UserMapper">
 
 </mapper>
