@@ -772,7 +772,10 @@ header {
   background: url(../images/page_icons.png) no-repeat;
 }
 .user-post__hover a.post:before {
-  background-position: -444px -919px;
+  background-position: -444px -918px;
+}
+.user-post__hover a.shoucang:before {
+  background-position: -700px -470px;
 }
 .user-post__hover a.manage:before {
   background-position: -444px -982px;

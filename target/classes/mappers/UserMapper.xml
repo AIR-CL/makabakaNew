@@ -7,4 +7,23 @@
 -->
 <mapper namespace="fhq.mapper.UserMapper">
 
+<mapper namespace="fhq.mapper.UserMapper">
+<!--    驼峰映射-->
+    <resultMap id="User" type="User" autoMapping="true">
+        <id property="user_id" column="userId"></id>
+    </resultMap>
+<!--    通过用户名查找用户信息-->
+<select id="findUserByUserName" resultMap="User">
+    select * from tb_user
+    where user_name=#{username}
+</select>
+<!--    注册-->
+    <insert id="regUser" parameterType="User">
+        insert into tb_user(user_id,user_name,user_password,salt) values (null,#{userName},#{userPassword},#{salt})
+    </insert>
+<!--    根据用户名和密码查询用户-->
+    <select id="loginCheck" resultMap="User">
+        select * from tb_user
+        where user_name=#{username} and user_password=#{password}
+    </select>
 </mapper>

@@ -16,8 +16,9 @@
     <!-- 作用1，去指定目录下扫描带有注解的类
         作用2，把扫描到的类交给spring去管理
     -->
-    <context:component-scan
-            base-package="fhq"></context:component-scan>
+    <context:component-scan base-package="fhq.service" ></context:component-scan>
+    <context:component-scan base-package="fhq.controller" ></context:component-scan>
+    <context:component-scan base-package="fhq.mapper" ></context:component-scan>
 
     <!-- 拼接正确的页面路径 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -25,13 +26,30 @@
         <property name="suffix" value=".html"></property>
     </bean>
 <!--    拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+<!--            需要拦截那些请求-->
+            <mvc:mapping path="/user/index"/>
+<!--            放行请求-->
+            <mvc:exclude-mapping path="/user/log"/>
+
+            <bean id="loginIntercepter" class="fhq.intercepter.LoginIntercepter"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <!--不拦截静态资源-->
     <mvc:default-servlet-handler/>
+    <!-- 静态资源映射 -->
+
     <!--过滤静态资源-->
+
+    <!-- 静态资源映射 -->
+    <!-- 静态资源映射 -->
+
     <mvc:resources mapping="/js/**" location="/js/"/>
-    <mvc:resources mapping="css/**" location="css/"/>
+    <mvc:resources mapping="s/**" location="/css/"/>
     <mvc:resources mapping="/images/**" location="/images/"/>
 <!--    <mvc:resources mapping="/bootstrap3/**" location="/bootstrap3/"/>-->
 
     <!--上传文件配置-->
+
 </beans>

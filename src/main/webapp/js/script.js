@@ -1,4 +1,6 @@
 $(function () {
+
+
   // 游戏中心背景图片切换
   var $game_item = $('.game-center').find('.all').find('a');
   var $gameImg = $('#gameImg');

@@ -8,7 +8,9 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
 <!--    扫描根包,将注解类给spring容器管理-->
-    <context:component-scan base-package="fhq"/>
+    <context:component-scan base-package="fhq.mapper"/>
+    <context:component-scan base-package="fhq.controller"/>
+    <context:component-scan base-package="fhq.service"/>
 
     <!-- 加载jdbc.properties文件
         location指定属性文件的位置
