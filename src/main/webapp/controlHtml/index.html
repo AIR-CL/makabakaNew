@@ -382,7 +382,7 @@
 
               for ( i = 1; i <=totalCount ; i++) {
                 str+="<li class='paginate_button page-item'>"+
-                  "<a href='#' tabindex='0' class='page-link' onclick='selectByPage(#{currentPage})'>#{Page}</a></li>"
+                  "<a href='#' tabindex='0' class='page-link' onclick='selectLikeByPage(#{currentPage})'>#{Page}</a></li>"
                 str=str.replace("#{Page}",i)
                 str=str.replace("#{currentPage}",i)
               }
