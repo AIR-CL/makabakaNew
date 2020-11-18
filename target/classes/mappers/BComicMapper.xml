@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 映射文件，存放SQL
+	namespace是映射文件(多个mapper文件)的唯一标志
+-->
+<mapper namespace="fhq.mapper.BComicMapper">
+    <!--查询所有的番剧的信息-->
+    <select id="findAllComic" parameterType="String" resultType="Comic">
+        select * from tb_comic
+        <where>
+            <if test="sInfo!='' and sInfo!=null">
+                 comic_name like "%"#{sInfo}"%"
+            </if>
+            <if test="sInfo!='' and sInfo!=null">
+                or broadcast_time like "%"#{sInfo}"%"
+            </if>
+            <if test="sInfo!='' and sInfo!=null">
+                or comic_state like "%"#{sInfo}"%"
+            </if>
+            <if test="sInfo!='' and sInfo!=null">
+                or dubbing like "%"#{sInfo}"%"
+            </if>
+            <if test="sInfo!='' and sInfo!=null">
+                or comic_type like "%"#{sInfo}"%"
+            </if>
+        </where>
+    </select>
+
+    <!--删除一条-->
+    <delete id="delComic" >
+        delete from tb_comic where comic_id=#{comicId}
+    </delete>
+</mapper>
