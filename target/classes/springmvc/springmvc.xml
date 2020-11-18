@@ -26,13 +26,13 @@
         <property name="suffix" value=".html"></property>
     </bean>
 
-    <!--&lt;!&ndash;文件上传&ndash;&gt;-->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!--设置上传最大尺寸为50MB-->
-        <property name="maxUploadSizePerFile" value="52428800"/>
-        <property name="defaultEncoding" value="UTF-8"/>
-        <property name="resolveLazily" value="true"/>
-    </bean>
+    <!-- 静态资源映射 -->
+
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="css/**" location="css/"/>
+    <mvc:resources mapping="s/**" location="/css/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
+<!--    <mvc:resources mapping="/bootstrap3/**" location="/bootstrap3/"/>-->
 
 
 
@@ -62,6 +62,14 @@
     <mvc:resources mapping="/images/**" location="/images/"/>
 <!--    <mvc:resources mapping="/bootstrap3/**" location="/bootstrap3/"/>-->
 
-    <!--上传文件配置-->
+
+    <!--文件上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--设置上传最大尺寸为50MB-->
+        <property name="maxUploadSizePerFile" value="52428800"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="resolveLazily" value="true"/>
+    </bean>
+
 
 </beans>
