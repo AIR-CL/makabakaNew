@@ -34,7 +34,7 @@
         opacity: 0 !important;
       }
       [tsbrowser_force_show] {
-        display: block !important;
+        display: black !important;
         visibility: visible !important;
         opacity: 0;
       }</style></head>
@@ -75,7 +75,7 @@
             <div class="user-post" clsaa="link" style="border-radius: 100%;width: 68px;height: 67px;background-color: #333333">  <div  class="user-post" clsaa="link" style="border-radius: 100%;background-image: url(../images/picture/04.jpg);background-position:center;background-size:90px;width: 60px;height: 60px;margin-left: 2px;margin-top: 2px"></div>
 
             <div class="user-post__hover header-hover" style="margin-top: 20px;margin-right:-75px">
-              <a href="/user/myCollection" class="shoucang">我的收藏</a>
+              <a href="../web/userCenter.html" class="shoucang">我的收藏</a>
               <a href="/user/userCenter" class="manage">信息设置</a>
               <a href="#" class="create">会员中心</a>
             </div>
@@ -611,15 +611,15 @@
   <script>
     L2Dwidget.init({
       "model": {
-        jsonPath: "https://unpkg.com/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json",<!--这里改模型，前面后面都要改-->
+        jsonPath: "https://unpkg.com/live2d-widget-model-tsumiki@1.0.5/assets/tsumiki.model.json",<!--这里改模型，前面后面都要改-->
         "scale": 1
       },
       "display": {
         "position": "left",<!--设置看板娘的上下左右位置-->
         "width": 330,
-        "height": 690,
-        "hOffset":0,
-        "vOffset": -220
+        "height": 660,
+        "hOffset": 0,
+        "vOffset": -60
       },
       "mobile": {
         "show": true,
