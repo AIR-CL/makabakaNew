@@ -8,19 +8,10 @@
 	3、映射文件
  -->
 <configuration>
+    <!--全局配置-->
     <settings>
         <!--是否开启自动驼峰命名规则-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-        <setting name="logImpl" value="STDOUT_LOGGING" />
-        <!-- 解决插入部分字段为空的问题  -->
-        <setting name="jdbcTypeForNull" value="NULL"/>
-        <setting name="callSettersOnNulls" value="true"/>
     </settings>
-    <plugins>
-        <plugin interceptor="com.github.pagehelper.PageInterceptor">
-            <!-- 设置数据库类型
-				Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库-->
-            <!--            <property name="dialect" value="mysql"/>-->
-        </plugin>
-    </plugins>
+
 </configuration>
