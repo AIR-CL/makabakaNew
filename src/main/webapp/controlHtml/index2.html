@@ -390,48 +390,48 @@
   src="../controlHtml/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
 <script
   src="../controlHtml/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-
+</body>
 <script>
-  $(function () {
-    //给搜索按钮绑定单击事件，获取搜索输入框的内容
-    $("#search_btn").click(function () {
-      var sInfo = $("#search_input").val();
-      sessionStorage.setItem("sInfo",sInfo);
-      pageFind(1,sInfo);
-    })
-    var sInfo = sessionStorage.getItem("sInfo");
-    // alert(sInfo);
+$(function () {
+  //给搜索按钮绑定单击事件，获取搜索输入框的内容
+  $("#search_btn").click(function () {
+    var sInfo = $("#search_input").val();
+    sessionStorage.setItem("sInfo",sInfo);
     pageFind(1,sInfo);
   })
+  var sInfo = sessionStorage.getItem("sInfo");
+  // alert(sInfo);
+  pageFind(1,sInfo);
+})
 
 
 
-  //给选择每页条数onchange绑定函数
-  function cpageFind(){
-    var sInfo = $("#search_input").val();
-    pageFind(1,sInfo);
-  }
+//给选择每页条数onchange绑定函数
+function cpageFind(){
+  var sInfo = $("#search_input").val();
+  pageFind(1,sInfo);
+}
 
-  //给修改按钮绑定comicId到修改也页面并转发
+//给修改按钮绑定comicId到修改也页面并转发
   function updatePage(comicId) {
-    $.get("/comic/updatePage",{comicId:comicId},function (data) {
-      window.location.href="/comic/updatePage?comicId="+comicId;
-    })
+      $.get("/comic/updatePage",{comicId:comicId},function (data) {
+          window.location.href="/comic/updatePage?comicId="+comicId;
+      })
   }
 
-  //给删除按钮绑定函数
+//给删除按钮绑定函数
   function delComic(comicId) {
-    $.get("/comic/delComic",{comicId:comicId},function (data) {
-      if (data.state===200){
-        alert(data.msg);
-      }else {
-        alert(data.msg);
-      }
-      window.location.reload();
-    })
+      $.get("/comic/delComic",{comicId:comicId},function (data) {
+          if (data.state===200){
+            alert(data.msg);
+          }else {
+            alert(data.msg);
+          }
+        window.location.reload();
+      })
   }
 
-  //分页函数
+//分页函数
   function pageFind(page,sInfo){
     // alert(sInfo+"22222");
     var sInfo = sInfo
@@ -442,87 +442,85 @@
       type: "get",
       data:{pageSize:pageSize,page:page,sInfo:sInfo},
       success:function(data) {
-        $("#totalPage").html(data.pages);
-        $("#totalCount").html(data.total);
-        /*<li class="paginate_button page-item" id="example2_previous"><a href="#" class="page-link">前一页</a></li>
+      $("#totalPage").html(data.pages);
+      $("#totalCount").html(data.total);
+      /*<li class="paginate_button page-item" id="example2_previous"><a href="#" class="page-link">前一页</a></li>
 
-                <li class="paginate_button page-item" id="example2_next"><a href="#"  class="page-link">下一页</a></li>
-                <li><a href="">末页</a></li>
-                javascript:pageFind('+data.nextPage+')*/
-        var lis = "";
+              <li class="paginate_button page-item" id="example2_next"><a href="#"  class="page-link">下一页</a></li>
+              <li><a href="">末页</a></li>
+              javascript:pageFind('+data.nextPage+')*/
+      var lis = "";
 
-        var firstPage = '<li><a href="javascript:pageFind(' + data.navigateFirstPage + ',' + sInfo + ')" class="page-link">第一页</a></li>';
-        var prePage = '<li><a href="javascript:pageFind(' + data.prePage + ',' + sInfo + ')" class="page-link">前一页</a></li>';
-        lis += firstPage;
-        lis += prePage;
-        for (var i = 1; i <= data.pages; i++) {
-          //创建页码的li
-          if (data.pageNum === i) {
-            var li = '<li class="paginate_button page-item "><a style="background-color:rgba(52,58,64,0.3)" href="javascript:pageFind(' + i +','+ sInfo+ ')" class="page-link">' + i + '</a></li>';
-          } else {
-            var li = '<li class="paginate_button page-item "><a href="javascript:pageFind(' + i + ',' + sInfo + ')" class="page-link">' + i + '</a></li>';
-          }
-          //拼接字符串
-          lis += li;
+      var firstPage = '<li><a href="javascript:pageFind(' + data.navigateFirstPage + ',' + sInfo + ')" class="page-link">第一页</a></li>';
+      var prePage = '<li><a href="javascript:pageFind(' + data.prePage + ',' + sInfo + ')" class="page-link">前一页</a></li>';
+      lis += firstPage;
+      lis += prePage;
+      for (var i = 1; i <= data.pages; i++) {
+        //创建页码的li
+        if (data.pageNum === i) {
+          var li = '<li class="paginate_button page-item "><a style="background-color:rgba(52,58,64,0.3)" href="javascript:pageFind(' + i +','+ sInfo+ ')" class="page-link">' + i + '</a></li>';
+        } else {
+          var li = '<li class="paginate_button page-item "><a href="javascript:pageFind(' + i + ',' + sInfo + ')" class="page-link">' + i + '</a></li>';
         }
-        var lastPage = '<li><a href="javascript:pageFind(' + data.navigateLastPage + ',' + sInfo + ')" class="page-link">末页</a></li>';
-        var nextPagee = '<li><a href="javascript:pageFind(' + data.nextPage + ',' + sInfo + ')" class="page-link">下一页</a></li>';
-        lis += nextPagee;
-        lis += lastPage;
-        //将lis内容设置到li中
-        $("#pageNum").html(lis);
-
-        /*          <td><input name="ids" type="checkbox"></td>
-                    <td>111</td>
-                    <td>222</td>
-                    <td>333</td>
-                    <td>444</td>
-                    <td>555</td>
-                    <td class="text-center">666</td>
-                    <td>555</td>
-                    <td>555</td>
-                    <td>555</td>
-                    <td>555</td>
-                    <td class="text-center">
-                      <button type="button" class="btn bg-olive btn-xs">订单</button>
-                      <button type="button" class="btn bg-olive btn-xs" onclick="location.href='orders/findById.do?id=${orders.id}'">详情</button>
-                      <button type="button" class="btn bg-olive btn-xs">编辑</button>
-                    </td>*/
-        var tds = "";
-        for (var j = 0; j < data.list.length; j++) {
-          var pretr = "<tr>";
-          tds += pretr;
-          var tdval = data.list[j];
-          var checktd = '<td><input name="ids" type="checkbox"></td>';
-          tds += checktd;
-          var td = '<td>' + tdval.comicId + '</td>\n' +
-            '                  <td>' + tdval.comicName + '</td>\n' +
-            '                  <td>' + tdval.clickFreq + '</td>\n' +
-            '                  <td>' + tdval.watchVip + '</td>\n' +
-            '                  <td>' + tdval.scoreNum + '</td>\n' +
-            '                  <td >' + tdval.broadcastTime + '</td>\n' +
-            '                  <td>' + tdval.comicState + '</td>\n' +
-            '                  <td>' + tdval.dubbing + '</td>\n' +
-            '                  <td>' + tdval.comicType + '</td>\n';
-          tds += td;
-          var caozuo = '       <td class="text-center">\n' +
-            '                    <button type="button" onclick="updatePage(' + tdval.comicId + ')" class="btn bg-olive btn-xs">编辑</button>\n' +
-            '                    <button type="button" class="btn bg-olive btn-xs">详情</button>\n' +
-            '                    <button type="button" onclick="delComic(' + tdval.comicId + ')" class="btn bg-olive btn-xs">删除</button>\n' +
-            '                  </td>';
-          tds += caozuo;
-
-          var lasttr = "</tr>"
-          tds += lasttr;
-        }
-        $("#comictr").html(tds);
+        //拼接字符串
+        lis += li;
       }
+      var lastPage = '<li><a href="javascript:pageFind(' + data.navigateLastPage + ',' + sInfo + ')" class="page-link">末页</a></li>';
+      var nextPagee = '<li><a href="javascript:pageFind(' + data.nextPage + ',' + sInfo + ')" class="page-link">下一页</a></li>';
+      lis += nextPagee;
+      lis += lastPage;
+      //将lis内容设置到li中
+      $("#pageNum").html(lis);
+
+      /*          <td><input name="ids" type="checkbox"></td>
+                  <td>111</td>
+                  <td>222</td>
+                  <td>333</td>
+                  <td>444</td>
+                  <td>555</td>
+                  <td class="text-center">666</td>
+                  <td>555</td>
+                  <td>555</td>
+                  <td>555</td>
+                  <td>555</td>
+                  <td class="text-center">
+                    <button type="button" class="btn bg-olive btn-xs">订单</button>
+                    <button type="button" class="btn bg-olive btn-xs" onclick="location.href='orders/findById.do?id=${orders.id}'">详情</button>
+                    <button type="button" class="btn bg-olive btn-xs">编辑</button>
+                  </td>*/
+      var tds = "";
+      for (var j = 0; j < data.list.length; j++) {
+        var pretr = "<tr>";
+        tds += pretr;
+        var tdval = data.list[j];
+        var checktd = '<td><input name="ids" type="checkbox"></td>';
+        tds += checktd;
+        var td = '<td>' + tdval.comicId + '</td>\n' +
+          '                  <td>' + tdval.comicName + '</td>\n' +
+          '                  <td>' + tdval.clickFreq + '</td>\n' +
+          '                  <td>' + tdval.watchVip + '</td>\n' +
+          '                  <td>' + tdval.scoreNum + '</td>\n' +
+          '                  <td >' + tdval.broadcastTime + '</td>\n' +
+          '                  <td>' + tdval.comicState + '</td>\n' +
+          '                  <td>' + tdval.dubbing + '</td>\n' +
+          '                  <td>' + tdval.comicType + '</td>\n';
+        tds += td;
+        var caozuo = '       <td class="text-center">\n' +
+          '                    <button type="button" onclick="updatePage(' + tdval.comicId + ')" class="btn bg-olive btn-xs">编辑</button>\n' +
+          '                    <button type="button" class="btn bg-olive btn-xs">详情</button>\n' +
+          '                    <button type="button" onclick="delComic(' + tdval.comicId + ')" class="btn bg-olive btn-xs">删除</button>\n' +
+          '                  </td>';
+        tds += caozuo;
+
+        var lasttr = "</tr>"
+        tds += lasttr;
+      }
+      $("#comictr").html(tds);
+    }
     })
   }
 
 
 
 </script>
-</body>
-
 </html>
