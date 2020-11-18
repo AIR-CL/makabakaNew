@@ -1,4 +1,3 @@
-fhq\intercepter\LoginIntercepter.class
 fhq\service\UserService.class
 fhq\controller\UserController.class
 fhq\service\serviceImpl\UserServiceImpl.class
