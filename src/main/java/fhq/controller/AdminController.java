@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,24 +27,53 @@ public class AdminController {
     public String toIndex(){
         return "controlHtml/index";
     }
-
-    //查询所有用户
-    @GetMapping("/findUsers")
+    //根据id查询
+    @PostMapping("/findUserById")
     @ResponseBody
-    public List<User> findAllUsers(){
+    public User findUserById(Integer userId){
+        User user = adminService.findUserByIdInfo(userId);
+        return user;
+    }
+
+
+    //查询总记录数
+    @GetMapping("/findUsersCount")
+    @ResponseBody
+    public Integer findUsersCount(){
         //调用业务层的查询方法
-        List<User> users = adminService.findAllUsersInfo();
-        return users;
+        Integer totalPage = adminService.findTotalPage();
+        return totalPage;
     }
-    //模糊查询
-    @PostMapping("/findUsersLike")
+    //模糊查询总记录数
+    @PostMapping("/findUsersLikeCount")
     @ResponseBody
-    public List<User> findUsersLike(Integer userId,String userName,Integer userVip,Integer loPh,Integer hiPh){
+    public Integer findUsersLikeCount(Integer userId,String userName,Integer userVip,Integer loPh,Integer hiPh){
 
-        List<User> users = adminService.findUsersLikeInfo(userId, userName, userVip, loPh,hiPh);
+        Integer totalPage = adminService.findUsersCountInfo(userId, userName, userVip, loPh, hiPh);
 
+        return totalPage;
+    }
+    //模糊查询分页
+    @PostMapping("/findUsersLikeByPage")
+    @ResponseBody
+    public List<User> findUsersLike(Integer userId,String userName,Integer userVip,Integer loPh,Integer hiPh,Integer currentPage,HttpSession session){
+        //设置当前页面，方便进行下一页上一页操作
+        session.setAttribute("currentPage",currentPage);
+        List<User> users = adminService.findUsersLikeByPageInfo(userId, userName, userVip, loPh,hiPh,currentPage);
         return users;
     }
+    //分页查询
+    @PostMapping("/findUsersByPage")
+    @ResponseBody
+    public List<User> findUsersByPage(Integer currentPage,HttpSession session){
+        //设置当前页面，方便进行下一页上一页操作
+        session.setAttribute("currentPage",currentPage);
+        List<User> users = adminService.findUsersByPageInfo(currentPage);
+        return users;
+    }
+
+
+
 
     //用户修改
    @PostMapping("/updateUser")
@@ -66,9 +96,37 @@ public class AdminController {
     public String toUpdatePage(Integer userId, HttpSession session){
         //设定一个seesion用于发送ajax请求
         session.setAttribute("userId",userId);
-
         return "/controlHtml/updatePage";
 
+    }
+    //获取session
+    @GetMapping("getSession")
+    @ResponseBody
+    public Map<String,Object> getSession(HttpSession session){
+        //获取当前页
+        Integer currentPage=(Integer) session.getAttribute("currentPage");
+        //获取总页数
+        Integer totalPage = adminService.findTotalPage();
+        Map<String,Object> map=new HashMap<String, Object>();
+        map.put("currentPage",currentPage);
+        map.put("totalPage",totalPage);
+
+        return map;
+    }
+
+    //模糊getSession
+    @GetMapping("getLikeSession")
+    @ResponseBody
+    public Map<String,Object> getLikeSession(Integer userId,String userName,Integer userVip,Integer loPh,Integer hiPh,HttpSession session){
+        //获取当前页面
+        Integer currentPage=(Integer) session.getAttribute("currentPage");
+        //获取总页数
+        Integer totalPage = adminService.findUsersCountInfo(userId,userName,userVip,loPh,hiPh);
+        Map<String,Object> map=new HashMap<String, Object>();
+        map.put("currentPage",currentPage);
+        map.put("totalPage",totalPage);
+
+        return map;
     }
 
 }

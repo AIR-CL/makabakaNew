@@ -18,18 +18,22 @@ public class User implements Serializable {
     private String tel;
     private Integer loPh;//最低充值金额
     private Integer hiPh;//最高金额
+    private Integer loLimit;//分页起点
 
-    public Integer getLoPh() {
-        return loPh;
+
+    public void setLoLimit(Integer loLimit) {
+        this.loLimit = loLimit;
     }
+
+
+
+
 
     public void setLoPh(Integer loPh) {
         this.loPh = loPh;
     }
 
-    public Integer getHiPh() {
-        return hiPh;
-    }
+
 
     public void setHiPh(Integer hiPh) {
         this.hiPh = hiPh;

@@ -18,9 +18,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Override
+
     public Map<String, Object> checkUserName(String username) {
-      Map<String,Object> map=new HashMap<>();
+      Map<String,Object> map=new HashMap<String, Object>();
       //对用户名进行判断
         if (username==null||"".equals(username)){
             map.put("state",0);
@@ -43,10 +43,10 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
+
     public Map<String, Object> toReg(String username, String password) {
 
-        Map<String,Object> map=new HashMap<>();
+        Map<String,Object> map=new HashMap<String, Object>();
         //对参数进行判断
         if (username==null||"".equals(username)){
             map.put("state",100);
@@ -92,9 +92,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
+
     public Map<String, Object> toLog(String username, String password, HttpServletRequest req) {
-        Map<String,Object> map=new HashMap<>();
+        Map<String,Object> map=new HashMap<String, Object>();
         //对参数进行判断
         if (username==null||"".equals(username)){
             map.put("state",100);

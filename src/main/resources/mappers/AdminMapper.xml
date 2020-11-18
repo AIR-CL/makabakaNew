@@ -6,14 +6,10 @@
 	namespace是映射文件(多个mapper文件)的唯一标志
 -->
 <mapper namespace="fhq.mapper.AdminMapper">
-    <!--管理员查询用户-->
 
-    <select id="findAllUsers" resultType="fhq.pojo.User">
-        select user_id,user_name,user_vip,push_money from tb_user ;
-    </select>
-    <!--模糊查询-->
-    <select id="findUsersLike" resultType="fhq.pojo.User" parameterType="User">
-        select user_id,user_name,user_vip,push_money from tb_user
+    <!--管理员查询用户记录条数-->
+    <select id="findUsersCount" resultType="Integer" parameterType="User">
+        select count(*) from tb_user
         <where>
             <if test="userId!=null and ''!=userId">
                 and user_id =#{userId}
@@ -35,6 +31,42 @@
             </if>
         </where>
     </select>
+    <!--根据id查询用户-->
+    <select id="findUserById" resultType="User" parameterType="Integer">
+        select * from tb_user where user_id=#{userId}
+    </select>
+    <!--模糊查询-->
+    <select id="findUsersLikeByPage" resultType="fhq.pojo.User" parameterType="User">
+        select user_id,user_name,user_vip,push_money   from tb_user
+        <where>
+            <if test="userId!=null and ''!=userId">
+                and user_id =#{userId}
+            </if>
+            <if test="userName!=null and ''!=userName">
+                and user_name like concat("%",#{userName},"%")
+            </if>
+            <if test="userVip!=null and ''!=userVip">
+                and user_vip=#{userVip}
+            </if>
+            <if test="loPh!=null and ''!=loPh and hiPh!=null and ''!=hiPh">
+                and push_money between #{loPh} and #{hiPh}
+            </if>
+            <if test="loPh!=null and ''!=loPh ">
+                and push_money &gt;#{loPh}
+            </if>
+            <if test="hiPh!=null and ''!=hiPh ">
+                and push_money &lt;#{hiPh},
+            </if>
+        </where >
+        limit #{loLimit},5
+    </select>
+
+    <!--分页查询-->
+    <select id="findUsersByPage" resultType="fhq.pojo.User" parameterType="User">
+        select user_id,user_name,user_vip,push_money   from tb_user limit #{loLimit},5
+    </select>
+
+
 
     <!--信息修改-->
     <update id="updateUser" parameterType="User">
