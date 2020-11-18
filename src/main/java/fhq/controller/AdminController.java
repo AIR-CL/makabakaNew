@@ -92,7 +92,7 @@ public class AdminController {
     }
 
     //跳转到修改页面
-    @GetMapping("toUpdateUserPage")
+    @GetMapping("/toUpdateUserPage")
     public String toUpdatePage(Integer userId, HttpSession session){
         //设定一个seesion用于发送ajax请求
         session.setAttribute("userId",userId);

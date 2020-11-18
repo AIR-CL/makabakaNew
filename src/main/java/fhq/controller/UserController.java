@@ -103,9 +103,11 @@ public class UserController {
     }
     //头像上传
     @PostMapping("/toUpload")
-    public Map<String,Object>toUpload(MultipartFile image,HttpServletRequest request){
-        Map<String, Object> map = userService.uploadFace(image, request);
-return map;
+    @ResponseBody
+    public Map<String,Object>toUpload(MultipartFile file,HttpServletRequest request){
+        System.out.println(file+"2323");
+        Map<String, Object> map = userService.uploadFace(file, request);
+        return map;
     }
 
 }

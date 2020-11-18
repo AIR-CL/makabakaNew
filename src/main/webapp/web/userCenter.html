@@ -205,23 +205,23 @@
                                   </form>
                               </div>
 <!--修改头像-->
-                              <div class="fade visibility " id="tab_3" ></a>
+                              <div class="fade visibility" id="tab_3"><a name="#tab_3"></a>
                                   <div class="form-group">
-                                      <form class="form-horizontal" id="upload"role="form"  enctype="multipart/form-data" >
+                                      <form class="form-horizontal" id="form-avatar" method="post" role="form"  action="/member/avatar.html" enctype="multipart/form-data" onSubmit="return false;">
                                           <div class="avatar-body">
                                               <div class="avatar-upload">
-                                                  <label style="line-height:35px; width:auto; margin-right:20px; font-weight:bold">头像上传</label>
-                                                  <label class="avatar-input btn btn-primary" for="image" style="float:left">
-                                                      <input type="file" class="sr-only" id="image" name="image" accept="image/*">请选择图片</label>
+                                                  <label for="avatarInput" style="line-height:35px; width:auto; margin-right:20px; font-weight:bold">头像上传</label>
+                                                  <label class="avatar-input btn btn-primary" for="inputImage" style="float:left">
+                                                      <input type="file" class="sr-only" id="inputImage" name="image" accept="image/*">请选择图片</label>
                                                   <input name="x" type="hidden">
-                                                  <input name="y" type="hidden">i
+                                                  <input name="y" type="hidden">
                                                   <input name="w" type="hidden">
                                                   <input name="h" type="hidden">
                                               </div>
                                               <div class="row ceshi">
                                                   <div class="col-md-9 col-sm-9 col-xs-9">
                                                       <div class="avatar-view">
-                                                          <img id="avatar-image" src="../resources/tpl/cms/avatar/444.jpg">
+                                                          <img id="avatar-image" src="">
                                                       </div>
                                                   </div>
                                                   <div class="col-md-3 col-sm-3 col-xs-3" id="preview">
@@ -252,7 +252,7 @@
                                                       </div>
                                                   </div>
                                                   <div class="col-md-3 col-sm-3 col-xs-3">
-                                                      <button type="button" class="btn btn-success btn-block" id="save">保存</button>
+                                                      <button type="button" class="btn btn-success btn-block" id="submit-avatar">保存</button>
                                                   </div>
                                               </div>
                                           </div>
@@ -363,7 +363,7 @@ $("input[type=file]").change(function() {
 	$image.attr('src', url);// 设置url到预览图片上
 	// 调出插件
 	$image.cropper({
-		// 裁切的框形状		   
+		// 裁切的框形状
 		aspectRatio: 1/1,
 		 // 显示预览的位置
 		preview:'.avatar-preview',
@@ -476,12 +476,10 @@ $("#submit-avatar").click(function(e) {
 	var form = document.querySelector("#form-avatar");
 	var formData = new FormData(form);
 	formData.append("file", blob);
-	$.showfloatdiv({
-		txt: '头像上传中...',
-		cssname: 'loading'
-	});
+alert(formData);
+
 	$.ajax({
-		url: '/member/avatar.html',
+		url: '/user/toUpload',
 		type: 'post',
 		dataType: 'json',
 		data: formData,
@@ -489,13 +487,16 @@ $("#submit-avatar").click(function(e) {
 		processData: false,
 		contentType: false,
 		success: function(r) {
-			$.hidediv(r);
-			if (parseInt(r.code) > 0) {
-				$("#avatar").attr("src",r.data+'?'+ Math.random());
-			}
+		    if(r.state==201){
+                alert(r.msg,function () {
+                    //重新登录
+                    location.href="/user/log";
+                });
+            }
+
 		},
-		error: function(r) {
-			$.hidediv(r);
+		error: function() {
+		alert(r.msg);
 		},
 	});
 	return false;
@@ -519,29 +520,12 @@ $(function () {
 	$(window).resize(function() {
        $(".avatar-view").height($('#preview').height()-25);
     });
-});			
+});
 $(".nav-tabs li a").click(function() {
 	$('#tab_3').removeClass("visibility");
-	$('#tab_3').addClass("tab-pane");		
+	$('#tab_3').addClass("tab-pane");
 
 });
-
-//$(document).ready(function(){
-//  //alert($(document.body).height())
-//  var mHeight = $('#preview').height();
-//  alert(mHeight)
-//  console.log(mHeight);//0
-// // alert($('.avatar-upload').offset().top)
-////    //初始化高度
-////	$height=$(".container").width()*0.75*0.75/2;
-////    $(".avatar-view").height($height);
-////	$("#preview").height($height);
-////    //当文档窗口发生改变时 触发
-////    $(window).resize(function(){
-////		$height=$(".container").width()*0.75*0.75/2;
-////        $(".avatar-view").height($height);
-////    })
-//})
 </script>﻿
 </body>
 <script src="https://cdn.jsdelivr.net/npm/jutils-src"></script>
@@ -615,18 +599,18 @@ $(".nav-tabs li a").click(function() {
         })
     })
 </script>
-<!--头像上传-->
-<script>
-  $("#save").click(function () {
-      var dataForm=$("#upload")[0];
-      var data=new FormData(dataForm);
-      alert(data)
-      $.post("/user/toUpload",data,function (data) {
+<!--&lt;!&ndash;头像上传&ndash;&gt;-->
+<!--<script>-->
+<!--  $("#save").click(function () {-->
+<!--      var dataForm=$("#upload")[0];-->
+<!--      var data=new FormData(dataForm);-->
+<!--      // 如果使用Ajax实现文件上传,必须添加两个属性-->
+<!--      $.Ajax{}-->
 
-      })
 
-  })
-</script>
+
+<!--  })-->
+<!--</script>-->
 
 <!--自定义弹框-->
 <script>

@@ -255,21 +255,31 @@ public class UserServiceImpl implements UserService {
     public Map<String, Object> uploadFace(MultipartFile file, HttpServletRequest request) {
         Map<String,Object> map=new HashMap<>();
         //参数判断
-        if (file==null){
+        if (file==null||"".equals(file)){
             map.put("msg","请选择上传文件");
             return map;
         }
         //判断文件大小
         if (file.getSize()>52428800){
+            map.put("state",100);
             map.put("msg","文件大小超出50M");
             return map;
         }
-        //获取上传文件的原名
-        String filename = file.getOriginalFilename();
-        //从后往前找文件名的第一个"."
-        int start = filename.lastIndexOf(".");
+        //获取用户名
+        String username =(String) request.getSession().getAttribute("username");
+        System.out.println(username+12131);
+        if ("".equals(username)||username==null){
+            map.put("state",201);
+            map.put("msg","用户名已过期,请重新登录");
+            return map;
+        }
+//        //获取上传文件的原名
+//        String filename = file.getOriginalFilename();
+//        //从后往前找文件名的第一个"."
+//      int start = filename.lastIndexOf(".");
         //得到文件的后缀
-        String subffix = filename.substring(start);
+        String subffix = ".jpg";
+                //filename.substring(start);
         //使用UUID产生文件名前缀
         String preffix = UUID.randomUUID().toString();
         //新的文件名
@@ -281,23 +291,24 @@ public class UserServiceImpl implements UserService {
             f.mkdir();//将文件夹创建出来
         }
         //
-        File filePath=new File(path,"/"+newFileName);
+        File filePath=new File(path,newFileName);
 
         try {   //实现上传到服务器
             file.transferTo(filePath);
-            //获取用户名
-            String username =(String) request.getSession().getAttribute("username");
+
             //头像路径
-            String face=path+"/"+newFileName;
+            String face="/face/"+newFileName;
 
             int row = userMapper.uploadFace(username, face);
             if (row>=1){
                 map.put("state","200");
                 map.put("msg","上传成功");
+                map.put("face",face);
+                request.getSession().setAttribute("face",face);
                 return map;
             }else {
                 map.put("state","100");
-                map.put("msg","上传传失败");
+                map.put("msg","上传失败,请重试");
                 return map;
             }
 
@@ -305,7 +316,7 @@ public class UserServiceImpl implements UserService {
         } catch (IOException e) {
             e.printStackTrace();
             map.put("state","100");
-            map.put("msg","上传传失败");
+            map.put("msg","上传失败");
             return map;
         }
 
