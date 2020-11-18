@@ -67,16 +67,16 @@
                               <h2 class="text-center p-0 m-0">
                                   <a href="/member/info.html">
                                       <div class="crop avatar">
-                                          <img  src="../resources/tpl/zanpianadmin/noavatar_big.gif" id="avatar" align="用户中心" width="150px" height="150px">
+                                          <img  src="" id="avatar" align="用户中心" width="150px" height="150px">
                                       </div>
                                   </a>
                               </h2>
                           </div>
                           <div class="user-center-info">
                               <p class="text-center">
-                                  <strong class="mr10 text-overflow">葭栖</strong>
-                                  <span></span>
-                                  <a class="text-color" href="/member/info.html">编辑资料</a></p>
+                                  <strong class="mr10 text-overflow" id="userBig"></strong>
+                                  <span  ></span>
+                                  <a class="text-color" href="/user/userCenter">编辑资料</a></p>
                               <p class="text-muted">
                                   <span>注册时间：</span>2020-11-16 13:30:10</p>
                               <p class="text-muted">
@@ -91,13 +91,13 @@
                           </div>
                           <ul class="box-star-list clearfix" >
                               <li class="col-md-4 col-sm-4 col-xs-3">
-                                  <a class="star-pic img-circle"  style="background: url(../resources/tpl/zanpianadmin/noavatar_big.gif) no-repeat top center;padding-top:100%;background-position:50% 50%;background-size:cover;" href="/u/3296.html">
+                                  <a class="star-pic img-circle"  style="background: url(../resources/tpl/zanpianadmin/noavatar_big.gif) no-repeat top center;padding-top:100%;background-position:50% 50%;background-size:cover;" href="#">
                                       <span class="text-overflow">葭栖</span>
                                   </a>
                               </li>
 
                               <li class="col-md-4 col-sm-4 col-xs-3">
-                                  <a class="star-pic img-circle"  style="background: url(../images/upload/3175.jpg_middle.jpg) no-repeat top center;padding-top:100%;background-position:50% 50%;background-size:cover;" href="/u/3175.html">
+                                  <a class="star-pic img-circle"  style="background: url(../images/upload/3175.jpg_middle.jpg) no-repeat top center;padding-top:100%;background-position:50% 50%;background-size:cover;" href="#">
                                       <span class="text-overflow">Chaka</span>
                                   </a>
                               </li>
@@ -210,7 +210,7 @@
                                       <form class="form-horizontal" id="form-avatar" method="post" role="form"  action="/member/avatar.html" enctype="multipart/form-data" onSubmit="return false;">
                                           <div class="avatar-body">
                                               <div class="avatar-upload">
-                                                  <label for="avatarInput" style="line-height:35px; width:auto; margin-right:20px; font-weight:bold">头像上传</label>
+                                                  <label  style="line-height:35px; width:auto; margin-right:20px; font-weight:bold">头像上传</label>
                                                   <label class="avatar-input btn btn-primary" for="inputImage" style="float:left">
                                                       <input type="file" class="sr-only" id="inputImage" name="image" accept="image/*">请选择图片</label>
                                                   <input name="x" type="hidden">
@@ -346,6 +346,7 @@
                   </div>
               </div>
           </div>
+<!--   头像上传-->
    <script type="text/javascript">var console = window.console || { log: function () {} };
 var $image = $("#avatar-image");
 // 获取裁切时的四个框
@@ -494,8 +495,8 @@ $("#submit-avatar").click(function(e) {
             }
 		    if (r.state==200){
 		        alert(r.msg,function () {
-		            window.location.href="/user/userCenter"
-
+		            $("#avatar").attr("src",r.face);
+                    window.location.reload(true);
                 })
             }
 	if (r.state==1){
@@ -537,6 +538,7 @@ $(".nav-tabs li a").click(function() {
 });
 </script>﻿
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/jutils-src"></script>
 <!--根据用户名查询用户-->
 <script>
@@ -560,6 +562,8 @@ $(".nav-tabs li a").click(function() {
         $("#edu").val(data.edu);
         $("#industry").val(data.industry);
         $("#signature").val(data.signature);
+        $("#avatar").attr("src",data.userFace);
+        $("#userBig").html(data.userName);
     });
 
     $("#modifyInfoBtn").click(function () {
@@ -608,19 +612,6 @@ $(".nav-tabs li a").click(function() {
         })
     })
 </script>
-<!--&lt;!&ndash;头像上传&ndash;&gt;-->
-<!--<script>-->
-<!--  $("#save").click(function () {-->
-<!--      var dataForm=$("#upload")[0];-->
-<!--      var data=new FormData(dataForm);-->
-<!--      // 如果使用Ajax实现文件上传,必须添加两个属性-->
-<!--      $.Ajax{}-->
-
-
-
-<!--  })-->
-<!--</script>-->
-
 <!--自定义弹框-->
 <script>
     window.alert = alert;
