@@ -30,9 +30,6 @@
   <!-- summernote -->
   <link rel="stylesheet" href="../controlHtml/plugins/summernote/summernote-bs4.min.css">
 </head>
-<style>
-  td{text-align: center}
-</style>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -131,308 +128,95 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
-    <table align="center">
-      <tr>
-        <td>id：<input type="text" id="userId" name="userId"/></td>
-        <td>姓名：<input type="text" id="userName" name="userName"/></td>
-        <td>vip等级：<input type="text" id="userVip" name="userVip"/></td>
-        <td>充值金额下限：<input type="text" id="loPh" name="loPh"/></td>
-        <td>充值金额上限：<input type="text" id="hiPh" name="hiPh"/></td>
+    <button id="selectBtn">查询</button>
+    <form id="selectForm">
+    id：<input type="text" id="userId" name="userId"/>
+    姓名：<input type="text" id="userName" name="userName"/>
+    vip等级：<input type="text" id="userVip" name="userVip"/>
+    充值金额下限：<input type="text" id="loPh" name="loPh"/>
+    充值金额上限：<input type="text" id="hiPh" name="hiPh"/>
+    </form>
 
-      </tr>
-
-    </table>
-    <button onclick="selectLikeByPage(1),likePage()">查询</button>
-   <!-- <td><button id="selectBtn">查询</button></td>-->
-    <div style="height: 1800px"><table class="table table table-striped table-bordered table-hover" id="tb1"></div>
-      <div><table class="table table table-striped table-bordered table-hover"   id="tb2"  >
-
-
-       <!-- <ul class="pagination" style="margin-left: 70%"
-          <li class="paginate_button page-item previous" id="example2_previous">
-            <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">前一页</a>
-          </li>
-
-          <li class="paginate_button page-item " id="example2_next">
-            <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">下一页</a>
-          </li>
-        </ul>-->
-
-      </table></div>
-
+    <table class="table table table-striped table-bordered table-hover" id="tb1">
 
 
       <script type="text/javascript">
         var tb1=document.getElementById("tb1");
-        var tb2=document.getElementById("tb2");
-       /* $("#selectBtn").click(selectLikeByPage())*/
-        /*模糊查询方法*/
-        function selectLikeByPage(currentPage) {
-          var userName=$("#userName").val();
-          var userId=$("#userId").val();
-          var userVip=$("#userVip").val();
-          var loPh=$("#loPh").val();
-          var hiPh=$("#hiPh").val();
-          var currentPage=currentPage;
+        /*查询所有*/
+        /*$("#selectBtn").click(function () {
+
           $.ajax({
-            type: "post",
-            dataType:"json",
-            data:{userId:userId,userName:userName,userVip:userVip,loPh:loPh,hiPh:hiPh,currentPage:currentPage},
-            url:"/admin/findUsersLikeByPage",
-            success:function (users) {
+            type:"get",
+            url:"/admin/findUsers",
+            dateType:"json",
+            success:function (data) {
+
               var str="<tr>\n" +
+                "      <td>用户id</td>\n" +
                 "      <td>用户名</td>\n" +
                 "      <td>VIP等级</td>\n" +
                 "      <td>充值金额</td>\n" +
-                "      <td>操作</td>\n"+
                 "    </tr>";
-              for (i in users) {
+              for (i in data) {
                 str += "<tr>" +
-                  "<td>userName</td>" +
-                  "<td>userVip</td>" +
-                  "<td>pushMoney</td>" +
-                  "<td><button onclick='toUpdateUser(#{userId})'>修改</button><button onclick='deleteUser(#{id})'>删除</button></a></td>"+
+                  "<td>" + data[i].userId + "</td>" +
+                  "<td>" + data[i].userName + "</td>" +
+                  "<td>" + data[i].userVip + "</td>" +
+                  "<td>" + data[i].pushMoney + "</td>" +
                   "</tr>";
-                str=str.replace("#{userId}",users[i].userId);
-                str=str.replace("userName",users[i].userName);
-                str=str.replace("userVip",users[i].userVip);
-                str=str.replace("pushMoney",users[i].pushMoney);
-                str=str.replace("#{id}",users[i].userId);
               }
               tb1.innerHTML = str;
             },
             error:function () {
-              alert("用户不存在")
+              alert("查询失败")
             }
-          })
-        }
-
-
-        /*删除用户*/
-        function  deleteUser(id) {
-
-          $.ajax({
-            url:"/admin/deleteUser",
-            data:{id: id},
-            dataType: "json",
-            type: "post",
-            success:function (data) {
-              if (data.state == 200) {
-                alert(data.msg);
-              } else {
-                alert(data.msg);
-              }
-            },
 
           })
 
-        }
-
-
-        /*跳转到用户修改页面*/
-        function  toUpdateUser(userId) {
-          /*alert(userId);*/
-          $.ajax({
-            url:"/admin/toUpdateUserPage",
-            type:"get",
-            data:{userId:userId},
-            success:function (msg) {
-           window.location.href="/admin/toUpdateUserPage?userId="+userId;
-
-            }
-          })
-        }
-
-
-        /*分页查询*/
-        function selectByPage(currentPage){
-          var currentPage=currentPage;
-          $.ajax({
-          type:"post",
+        })*/
+        /*模糊查询*/
+        $("#selectBtn").click(function () {
+          var userName=$("#userName").val();
+          var userId=$("#userId").val();
+          var userVip=$("#userVip").val();
+          var loPh=$("#loPh").val();
+          var hiPh=$("#hiPh").val();
+        $.ajax({
+          type: "post",
           dataType:"json",
-          url:"/admin/findUsersByPage",
-          data:{currentPage:currentPage},
-            success:function (users) {
-              var str="<tr>\n" +
-                "      <td>用户名</td>\n" +
-                "      <td>VIP等级</td>\n" +
-                "      <td>充值金额</td>\n" +
-                "      <td>操作</td>\n"+
-                "    </tr>";
-              for (i in users) {
-                str += "<tr>" +
-                  "<td>userName</td>" +
-                  "<td>userVip</td>" +
-                  "<td>pushMoney</td>" +
-                  "<td><button onclick='toUpdateUser(#{userId})'>修改</button><button onclick='deleteUser(#{id})'>删除</button></a></td>"+
-                  "</tr>";
-                str=str.replace("#{userId}",users[i].userId);
-                str=str.replace("userName",users[i].userName);
-                str=str.replace("userVip",users[i].userVip);
-                str=str.replace("pushMoney",users[i].pushMoney);
-                str=str.replace("#{id}",users[i].userId);
-              }
+          data:{userId:userId,userName:userName,userVip:userVip,loPh:loPh,hiPh:hiPh},
+          url:"/admin/findUsersLike",
+          success:function (users) {
+            var str="<tr>\n" +
+              "      <td>用户id</td>\n" +
+              "      <td>用户名</td>\n" +
+              "      <td>VIP等级</td>\n" +
+              "      <td>充值金额</td>\n" +
+              "      <td>操作</td>\n"+
+              "    </tr>";
+            for (i in users) {
+              str += "<tr>" +
+                "<td id='userName'>" + users[i].userId + "</td>" +
+                "<td>" + users[i].userName + "</td>" +
+                "<td>" + users[i].userVip + "</td>" +
+                "<td>" + users[i].pushMoney + "</td>" +
+                "</tr>";
+            }
+            tb1.innerHTML = str;
 
-              tb1.innerHTML = str;
-            },
-
+          },
+          error:function () {
+            alert("查询失败")
+          }
         })
-        }
-
-        /*上一页*/
-        function toPreviousPage() {
-          //alert(111);
-          $.ajax({
-            url:"/admin/getSession",
-            dataType:"json",
-            type:"get",
-            success:function (data){
-
-              var currentPage=data.currentPage-1;
-              /*页数判断*/
-              if(currentPage<1){
-                currentPage=1;
-              }
-              selectByPage(currentPage);
-            }
-
-          })
-        }
-        /*模糊分页*/
-        function toPreviousLikePage() {
-          //alert(111);
-          $.ajax({
-            url:"/admin/getSession",
-            dataType:"json",
-            type:"get",
-            success:function (data){
-
-              var currentPage=data.currentPage-1;
-              /*页数判断*/
-              if(currentPage<1){
-                currentPage=1;
-              }
-              selectLikeByPage(currentPage);
-            }
-
-          })
-        }
-
-        /*下一页*/
-        function toNextPage() {
-          $.ajax({
-            url:"/admin/getSession",
-            dataType:"json",
-            type:"get",
-            success:function (data) {
-              var currentPage;
-              if(data.currentPage>=data.totalPage){
-               currentPage=data.totalPage;
-              }else {
-                currentPage=data.currentPage+1;
-              }
-              selectByPage(currentPage);
-            }
-
-          })
-        }
-        /*模糊下一页*/
-        function toNextLikePage() {
-          var userName=$("#userName").val();
-          var userId=$("#userId").val();
-          var userVip=$("#userVip").val();
-          var loPh=$("#loPh").val();
-          var hiPh=$("#hiPh").val();
-          $.ajax({
-            url:"/admin/getLikeSession",
-            dataType:"json",
-            type:"get",
-            data:{userId:userId,userName:userName,userVip:userVip,loPh:loPh,hiPh:hiPh},
-            success:function (data) {
-              var currentPage;
-              if(data.currentPage>=data.totalPage){
-                currentPage=data.totalPage;
-              }else {
-                currentPage=data.currentPage+1;
-              }
-
-              selectLikeByPage(currentPage);
-            }
-
-          })
-        }
-        /*模糊分页*/
-        function likePage() {
-          var userName=$("#userName").val();
-          var userId=$("#userId").val();
-          var userVip=$("#userVip").val();
-          var loPh=$("#loPh").val();
-          var hiPh=$("#hiPh").val();
-          var str="";
-          $.ajax({
-            url:"/admin/findUsersLikeCount",
-            type:"post",
-            dataType:"json",
-            data:{userId:userId,userName:userName,userVip:userVip,loPh:loPh,hiPh:hiPh},
-            success:function (data) {
-              totalCount=data;
-              str+="<ul class='pagination' style='margin-left: 70%'>" + "<li class='paginate_button page-item previous' id='example2_previous'>"+
-                "<a href='#'  tabindex='0' class='page-link' onclick='toPreviousLikePage()'>上一页</a>"+
-                "</li>";
-
-              for ( i = 1; i <=totalCount ; i++) {
-                str+="<li class='paginate_button page-item'>"+
-                  "<a href='#' tabindex='0' class='page-link' onclick='selectLikeByPage(#{currentPage})'>#{Page}</a></li>"
-                str=str.replace("#{Page}",i)
-                str=str.replace("#{currentPage}",i)
-              }
-              str+="<li class='paginate_button page-item ' id='example2_next' >"+
-                "<a href='#' tabindex='0' class='page-link'  id='ttt' onclick='toNextLikePage()'>下一页</a></li>"+
-                "</ul>"
-              tb2.innerHTML = str;
-            },
-          })
-        }
-        /*分页*/
-        function page() {
-          var str="";
-          $.ajax({
-            url:"/admin/findUsersCount",
-            type:"get",
-            dataType:"json",
-            success:function (data) {
-              totalCount=data;
-              str+="<ul class='pagination' style='margin-left: 70%'>" + "<li class='paginate_button page-item previous' id='example2_previous'>"+
-                     "<a href='#'  tabindex='0' class='page-link' onclick='toPreviousPage()'>上一页</a>"+
-                     "</li>";
-
-              for ( i = 1; i <=totalCount ; i++) {
-                str+="<li class='paginate_button page-item'>"+
-                       "<a href='#' tabindex='0' class='page-link' onclick='selectByPage(#{currentPage})'>#{Page}</a></li>"
-                        str=str.replace("#{Page}",i)
-                        str=str.replace("#{currentPage}",i)
-              }
-              str+="<li class='paginate_button page-item ' id='example2_next' >"+
-                "<a href='#' tabindex='0' class='page-link'  id='ttt' onclick='toNextPage()'>下一页</a></li>"+
-                "</ul>"
-              tb2.innerHTML = str;
-            },
-          })
-        }
-        /*预加载页面*/
-        $(document).ready(selectByPage(1),page())
-
-
-
-
-
+        })
 
 
 
 
       </script>
 
-
+    </table>
 
 
 
