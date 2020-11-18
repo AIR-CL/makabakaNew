@@ -1,8 +1,10 @@
 package fhq.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Component
 public class User implements Serializable {
@@ -16,6 +18,13 @@ public class User implements Serializable {
     private String email;
     private String sex;//性别
     private String tel;
+    //将客户端字符串格式的日期按照指定的格式转成Date类型
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
+    private String industry;
+    private String edu;
+    private String address;
+    private String signature;
     private Integer loPh;//最低充值金额
     private Integer hiPh;//最高金额
     private Integer loLimit;//分页起点
@@ -119,12 +128,52 @@ public class User implements Serializable {
         this.tel = tel;
     }
 
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
+    }
+
+    public String getEdu() {
+        return edu;
+    }
+
+    public void setEdu(String edu) {
+        this.edu = edu;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
-                ", password='" + userPassword + '\'' +
+                ", userPassword='" + userPassword + '\'' +
                 ", userVip=" + userVip +
                 ", userFace='" + userFace + '\'' +
                 ", salt='" + salt + '\'' +
@@ -132,6 +181,14 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", sex='" + sex + '\'' +
                 ", tel='" + tel + '\'' +
+                ", birthday=" + birthday +
+                ", industry='" + industry + '\'' +
+                ", edu='" + edu + '\'' +
+                ", address='" + address + '\'' +
+                ", signature='" + signature + '\'' +
+                ", loPh=" + loPh +
+                ", hiPh=" + hiPh +
                 '}';
     }
 }
+
