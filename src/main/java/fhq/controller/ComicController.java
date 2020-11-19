@@ -31,6 +31,11 @@ public class ComicController {
         return "/controlHtml/index2_add";
     }
 
+    //跳转到详情页
+    @GetMapping("/toBroadcastPage")
+    public String toBroadcastPage(){
+        return "/web/broadcast";
+    }
     //分页查询所有
     @GetMapping("/findAllComic")
     public @ResponseBody PageInfo<Comic> findAllComic(@RequestParam(value = "page",defaultValue = "1") int page,int pageSize,String sInfo){
@@ -53,5 +58,7 @@ public class ComicController {
         Map<String, Object> map = bComicService.delComic(comicId);
         return map;
     }
+
+
     
 }
