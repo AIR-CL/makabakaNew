@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>玛卡巴卡后台用户管理</title>
+  <!-- jQuery -->
+  <script src="../controlHtml/plugins/jquery/jquery.min.js"></script>
+  <script src="../resources/bootstrap-3.3.7-../controlHtml/dist/js/jquery-1.9.1.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="../controlHtml/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../controlHtml/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="../controlHtml/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../controlHtml/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="../controlHtml/plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../controlHtml/dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../controlHtml/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../controlHtml/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="../controlHtml/plugins/summernote/summernote-bs4.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="index3.html" class="nav-link">主页</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">交流</a>
+      </li>
+    </ul>
+
+    <!-- SEARCH FORM -->
+    <form class="form-inline ml-3">
+      <div class="input-group input-group-sm">
+        <input class="form-control form-control-navbar" type="search" placeholder="搜索" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+
+
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="../controlHtml/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">玛卡巴卡</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="../controlHtml/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">管理员登录</a>
+        </div>
+      </div>
+
+
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                信息管理
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/admin/toIndex" class="nav-link active" >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>用户信息管理</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./index2.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>番剧信息管理</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./index3.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>留言与控制模块</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+
+
+    <table class="table table table-striped table-bordered table-hover" id="tb1">
+      <form>
+        <tr>
+          <td>姓名:</td>
+          <td><input id="nameIpt" value="" /></td>
+        </tr>
+        <tr>
+          <td>vip等级:</td>
+          <td><input id="vipIpt" value="" /></td>
+        </tr>
+        <tr>
+          <td>充值金额：</td>
+          <td><input id="moneyIpt" value=""/></td>
+        </tr>
+      </form>
+     </table>
+    <button type="submit" id="btn">提交</button>
+
+    <script type="text/javascript">
+      /*修改用户信息*/
+      $("#btn").click(function () {
+        var userName=$("#nameIpt").val();
+        var userVip=$("#vipIpt").val();
+        var pushMoney=$("#moneyIpt").val();
+        var url = location.search; //获取url中"?"符后的字串
+          if (url.indexOf("?") != -1) {  //判断是否有参数
+            var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+            strs = str.split("=");  //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+            var userId=strs[1];     //直接弹出第一个参数 （如果有多个参数 还要进行循环的）
+          }
+        $.ajax({
+          data:{userId:userId,userName: userName,userVip: userVip,pushMoney:pushMoney},
+          url:"/admin/updateUser",
+          dataType:"json",
+          type:"post",
+          success:function (data) {
+            if (data.state==200){
+              alert(data.msg)
+              location.href="/admin/toIndex";
+
+            }else {
+              alert(data.msg)
+            }
+          },
+          error:function () {
+            alert("服务器正忙！！！")
+          }
+        })
+      })
+
+      /*页面加载完成时*/
+      $(document).ready(loadPage())
+
+      /*复现数据*/
+      function loadPage(){
+        var url = location.search; //获取url中"?"符后的字串
+        if (url.indexOf("?") != -1) {  //判断是否有参数
+          var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+          strs = str.split("=");  //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+          var userId=strs[1];     //直接弹出第一个参数 （如果有多个参数 还要进行循环的）
+          $.ajax({
+            url:"/admin/findUserById",
+            type: "post",
+            dataType: "json",
+            data: {userId: userId},
+            success:function (data) {
+              var userName=data.userName
+              var userVip=data.userVip
+              var pushMoney=data.pushMoney
+              $("#nameIpt").attr("value",userName);
+              $("#vipIpt").attr("value",userVip);
+              $("#moneyIpt").attr("value",pushMoney);
+
+            },error:function () {
+              alert("失败")
+            }
+
+          })
+
+        }
+
+      }
+
+    </script>
+    </table>
+
+
+
+
+
+
+
+
+  </div>
+  <!-- /.content-wrapper -->
+
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+
+
+  $.widget.bridge('ui.button', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="../controlHtml/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="../controlHtml/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="../controlHtml/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="../controlHtml/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="../controlHtml/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../controlHtml/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="../controlHtml/plugins/moment/moment.min.js"></script>
+<script src="../controlHtml/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../controlHtml/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="../controlHtml/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="../controlHtml/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../controlHtml/dist/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../controlHtml/dist/js/demo.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="../controlHtml/dist/js/pages/dashboard.js"></script>
+</body>
+</html>

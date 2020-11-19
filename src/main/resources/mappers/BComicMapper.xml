@@ -5,13 +5,7 @@
 <!-- 映射文件，存放SQL
 	namespace是映射文件(多个mapper文件)的唯一标志
 -->
-
 <mapper namespace="fhq.mapper.BComicMapper">
-    <!--    驼峰映射-->
-    <resultMap id="ComicMapper" type="Comic" autoMapping="true">
-        <id property="comic_id" column="comicId"></id>
-    </resultMap>
-
     <!--查询所有的番剧的信息-->
     <select id="findAllComic" parameterType="String" resultType="Comic">
         select * from tb_comic
@@ -38,18 +32,4 @@
     <delete id="delComic" >
         delete from tb_comic where comic_id=#{comicId}
     </delete>
-    <!--新增一条-->
-    <insert id="addComic" parameterType="Comic">
-        insert into tb_comic(comic_id,comic_name, broadcast_time, comic_state, dubbing, comic_type, comic_face)
-         values (null,#{comicName},#{broadcastTime},#{comicState},#{dubbing},#{comicType},#{comicFace})
-    </insert>
-    <!--根据id查询一个番剧信息-->
-    <select id="findComicById" resultType="Comic">
-        select * from tb_comic where comic_id=#{comicId}
-    </select>
-    <!--根据id修改comic-->
-    <update id="updateComic" parameterType="Comic">
-        update tb_comic set comic_state=#{comicState},broadcast_time=#{broadcastTime},dubbing=#{dubbing},comic_type=#{comicType},
-                            comic_face=#{comicFace} where comic_id=#{comicId}
-    </update>
 </mapper>
