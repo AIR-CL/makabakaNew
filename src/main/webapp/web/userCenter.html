@@ -23,13 +23,8 @@
     <link href="../resources/tpl/cms/avatar/cropper.css" rel="stylesheet">
     <script src="../resources/tpl/cms/avatar/cropper.js"></script>
     <link href="../resources/tpl/cms/avatar/avatar.css" rel="stylesheet">
-    <style>
-        body::-webkit-scrollbar{
-            display:none;
-        }
-    </style>
 </head>
-<body class="center_body"style="background-image: url(../images/picture/08.jpg);background-size:cover;background-attachment: fixed">
+<body class="center_body">
    <nav class="navbar navbar-inverse navbar-fixed-top user-nav" role="navigation">
        <div class="container"><div class="navbar-header navbar-left">
            <div class="navbar-toggle " data-toggle="collapse" data-target="#navbar-collapse">
@@ -44,7 +39,7 @@
                <ul class="nav navbar-nav">
                    <li><a href="/user/index">网站首页</a></li>
                    <li class="active"><a href="/user/userCenter">资料</a>
-                   <li ><a href="/user/myCollection">我的收藏</a></li>
+                   <li ><a href="/member/love.html">我的收藏</a></li>
                    <li ><a href="/member/cm.html">我的评论</a></li>
                    <li ><a href="/member/msg.html">私信</a></li>
                    <li ><a href="/member/gb.html">留言</a></li>
@@ -61,22 +56,21 @@
           <div class="container">
               <div class="row">
                   <div class="col-md-3 col-sm-4 col-xs-12 box-main-content">
-<!--用户信息 -->
                       <div class="user-box clearfix mb20 user-info-left pb-0">
                           <div class="user-center-avatars p-0">
                               <h2 class="text-center p-0 m-0">
                                   <a href="/member/info.html">
                                       <div class="crop avatar">
-                                          <img  src="" id="avatar" align="用户中心" width="150px" height="150px">
+                                          <img  src="../resources/tpl/zanpianadmin/noavatar_big.gif" id="avatar" align="用户中心" width="150px" height="150px">
                                       </div>
                                   </a>
                               </h2>
                           </div>
                           <div class="user-center-info">
                               <p class="text-center">
-                                  <strong class="mr10 text-overflow" id="userBig"></strong>
-                                  <span  ></span>
-                                  <a class="text-color" href="/user/userCenter">编辑资料</a></p>
+                                  <strong class="mr10 text-overflow">葭栖</strong>
+                                  <span></span>
+                                  <a class="text-color" href="/member/info.html">编辑资料</a></p>
                               <p class="text-muted">
                                   <span>注册时间：</span>2020-11-16 13:30:10</p>
                               <p class="text-muted">
@@ -84,20 +78,19 @@
                               <p class="text-muted"><span>登录次数：</span>1 次</p>
                           </div>
                       </div>
-<!--最近用户 -->
                       <div class="user-box clearfix  hidden-xs">
                           <div class="user-center-title pt-0 hidden-xs">
                               <h2 class="text-color">最近用户</h2>
                           </div>
                           <ul class="box-star-list clearfix" >
                               <li class="col-md-4 col-sm-4 col-xs-3">
-                                  <a class="star-pic img-circle"  style="background: url(../resources/tpl/zanpianadmin/noavatar_big.gif) no-repeat top center;padding-top:100%;background-position:50% 50%;background-size:cover;" href="#">
+                                  <a class="star-pic img-circle"  style="background: url(../resources/tpl/zanpianadmin/noavatar_middle.gif) no-repeat top center;padding-top:100%;background-position:50% 50%;background-size:cover;" href="/u/3296.html">
                                       <span class="text-overflow">葭栖</span>
                                   </a>
                               </li>
 
                               <li class="col-md-4 col-sm-4 col-xs-3">
-                                  <a class="star-pic img-circle"  style="background: url(../images/upload/3175.jpg_middle.jpg) no-repeat top center;padding-top:100%;background-position:50% 50%;background-size:cover;" href="#">
+                                  <a class="star-pic img-circle"  style="background: url(../images/upload/3175.jpg_middle.jpg) no-repeat top center;padding-top:100%;background-position:50% 50%;background-size:cover;" href="/u/3175.html">
                                       <span class="text-overflow">Chaka</span>
                                   </a>
                               </li>
@@ -105,112 +98,111 @@
                           </ul>
                       </div>
                   </div>
-                  <div class="col-md-9 col-sm-8 col-xs-12 xs-bt-20 box-main-side"style="height: 700px " >
-                      <div class="user-box clearfix"style="background-color: rgba(255,255,255,0.7)">
+                  <div class="col-md-9 col-sm-8 col-xs-12 xs-bt-20 box-main-side">
+                      <div class="user-box clearfix">
                           <div class="user-infos">
                               <ul class="nav nav-tabs">
                                   <li class="active"><a href="#tab_1" data-toggle="tab" id="tab-info">基本资料</a></li>
+
                                   <li><a   href="#tab_3" data-toggle="tab" id="tab-avatar">头像修改</a></li>
                                   <li><a href="#tab_4" data-toggle="tab" id="tab-sns">同步绑定</a></li>
                                   <li><a href="#tab_5" data-toggle="tab" id="tab-pass">密码修改</a></li>
                               </ul>
-<!--修改信息-->
                               <div class="tab-pane fade active in" id="tab_1">
-                                  <form class="form-horizontal"  id="modifyForm" >
+                                  <form class="form-horizontal"  method="post" role="form" action="/member/info.html" onSubmit="return false;">
                                       <div class="form-group">
-                                          <label for="userName" class="control-label col-xs-12 col-sm-3">您的用户帐号：</label>
+                                          <label for="user_name" class="control-label col-xs-12 col-sm-3">您的用户帐号：</label>
                                           <div class="col-xs-12 col-sm-6">
-                                              <input type="text" class="form-control" id="userName" name="userName" value="" readonly="readonly" >
+                                              <input type="text" class="form-control" name="user_name" value="jiaqi" readonly="readonly" >
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label for="tel" class="control-label col-xs-12 col-sm-3">您的手机号</label>
+                                          <label for="user_email" class="control-label col-xs-12 col-sm-3">您的手机</label>
                                           <div class="col-xs-12 col-sm-6">
-                                              <input type="text" class="form-control" id="tel" name="tel" value=" ">
+                                              <input type="text" class="form-control" id="user_mobile" name="user_mobile" >
 
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label for="email" class="control-label col-xs-12 col-sm-3">您的email地址</label>
+                                          <label for="user_email" class="control-label col-xs-12 col-sm-3">您的email地址</label>
                                           <div class="col-xs-12 col-sm-6">
-                                              <input type="text" class="form-control" id="email" name="email" value=" " >
+                                              <input type="text" class="form-control" id="user_email" name="user_email" value="2016787823@qq.com" >
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label for="address" class="control-label col-xs-12 col-sm-3">您的住址：</label>
+                                          <label for="user_nickname" class="control-label col-xs-12 col-sm-3">您的住址：</label>
                                           <div class="col-xs-12 col-sm-6">
-                                              <input type="text" class="form-control" id="address" name="address" value="" >
+                                              <input type="text" class="form-control" name="user_nickname" value="葭栖" >
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label for="sex" class="control-label col-xs-12 col-sm-3">性别：</label>
                                           <div class="col-xs-12 col-sm-6">
-                                              <select name="sex" id="sex" class="form-control ">
-                                                  <option value=" "> </option>
-                                                  <option value="男">男</option>
-                                                  <option value="女" >女</option></select>
+                                              <select name="user_sex" class="form-control selectpicker">
+                                                  <option value="1">男</option>
+                                                  <option value="2" >女</option></select>
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label for="birthday" class="control-label col-xs-12 col-sm-3">出生年月日：</label>
                                           <div class="col-xs-12 col-sm-6">
-                                              <input type="date" class="form-control"id="birthday" name="birthday" value="" type="datetime" style="text-align:center">
+                                              <input class="form-control" name="user_birthday" value="" placeholder="出生日期格式2018-01-01" type="datetime" style="text-align:center">
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label for="edu" class="control-label col-xs-12 col-sm-3">学历：</label>
                                           <div class="col-xs-12 col-sm-6">
-                                              <select name="edu" id="edu" class="form-control" >
+                                              <select name="user_edu" class="form-control selectpicker">
                                                   <option value="">选择学历</option>
-                                                  <option value="小学" >小学</option>
-                                                  <option value="初中" >初中</option>
-                                                  <option value="高中/中专" >高中/中专</option>
-                                                  <option value="大专" >大专</option>
-                                                  <option value="本科" >本科</option>
-                                                  <option value="硕士及以上" >硕士及以上</option>
+                                                  <option value="1" >小学</option>
+                                                  <option value="2" >初中</option>
+                                                  <option value="3" >高中/中专</option>
+                                                  <option value="4" >大专</option>
+                                                  <option value="5" >本科</option>
+                                                  <option value="6" >硕士及以上</option>
                                               </select>
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label for="industry" class="control-label col-xs-12 col-sm-3">行业：</label>
+                                          <label for="user_industry" class="control-label col-xs-12 col-sm-3">行业：</label>
                                           <div class="col-xs-12 col-sm-6">
-                                              <select name="industry" id="industry" class="form-control ">
+                                              <select name="user_industry" class="form-control selectpicker">
                                                   <option value="">选择行业</option>
-                                                  <option value="教育/学生"   >教育/学生</option>
-                                                  <option value="计算机/互联网"  >计算机/互联网</option>
-                                                  <option value="建筑"  >建筑</option>
-                                                  <option value="金融/房产"  >金融/房产</option>
-                                                  <option value="政府/公共服务"  >政府/公共服务</option>
-                                                  <option value="电信/网络"  >电信/网络</option>
-                                                  <option value="服务"  >服务</option>
-                                                  <option value="传媒/娱乐"  >传媒/娱乐</option>
-                                                  <option value="农林/化工"  >农林/化工</option>
-                                                  <option value="旅游/交通" >旅游/交通</option>
-                                                  <option value="其他" >其他</option>
+                                                  <option value="1"   >教育/学生</option>
+                                                  <option value="2"  >计算机/互联网</option>
+                                                  <option value="3"  >建筑</option>
+                                                  <option value="4"  >金融/房产</option>
+                                                  <option value="5"  >政府/公共服务</option>
+                                                  <option value="6"  >电信/网络</option>
+                                                  <option value="7"  >服务</option>
+                                                  <option value="8"  >传媒/娱乐</option>
+                                                  <option value="9"  >农林/化工</option>
+                                                  <option value="10" >旅游/交通</option>
+                                                  <option value="11" >其他</option>
                                               </select>
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label for="signature" class="control-label col-xs-12 col-sm-3">个性签名：</label>
                                           <div class="col-xs-12 col-sm-6">
-                                              <textarea cols="40" class="form-control txt" name="signature" id="signature" rows="5" placeholder="输入个性签名"></textarea>
+                                              <textarea cols="40" class="form-control txt" name="user_signature" id="user_signature" rows="5" placeholder="输入个性签名"></textarea>
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="control-label col-xs-12 col-sm-3"></label>
                                           <div class="col-xs-12 col-sm-6 text-center">
-                                              <button type="button" class="btn btn-success btn-block" id="modifyInfoBtn" from="form-info">提交</button>
+                                              <button type="submit" class="btn btn-success btn-block" id="submit" from="form-info">提交</button>
                                           </div>
                                       </div>
                                   </form>
                               </div>
-<!--修改头像-->
+
                               <div class="fade visibility" id="tab_3"><a name="#tab_3"></a>
                                   <div class="form-group">
                                       <form class="form-horizontal" id="form-avatar" method="post" role="form"  action="/member/avatar.html" enctype="multipart/form-data" onSubmit="return false;">
                                           <div class="avatar-body">
                                               <div class="avatar-upload">
-                                                  <label  style="line-height:35px; width:auto; margin-right:20px; font-weight:bold">头像上传</label>
+                                                  <label for="avatarInput" style="line-height:35px; width:auto; margin-right:20px; font-weight:bold">头像上传</label>
                                                   <label class="avatar-input btn btn-primary" for="inputImage" style="float:left">
                                                       <input type="file" class="sr-only" id="inputImage" name="image" accept="image/*">请选择图片</label>
                                                   <input name="x" type="hidden">
@@ -221,7 +213,7 @@
                                               <div class="row ceshi">
                                                   <div class="col-md-9 col-sm-9 col-xs-9">
                                                       <div class="avatar-view">
-                                                          <img id="avatar-image" src="">
+                                                          <img id="avatar-image" src="../resources/tpl/cms/avatar/444.jpg">
                                                       </div>
                                                   </div>
                                                   <div class="col-md-3 col-sm-3 col-xs-3" id="preview">
@@ -259,7 +251,6 @@
                                       </form>
                                   </div>
                               </div>
-<!--绑定账号 -->
                               <div class="tab-pane fade" id="tab_4">
                                   <div class="col-md-12 sns-list">
                                       <div class="col-md-2 col-sm-2 col-xs-12">
@@ -274,7 +265,7 @@
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12 text-center">
                                           <a class="btn btn-success" id="delsns" data-id="qq" style="display:none">取消绑定</a>
-                                          <a class="btn btn-default"  href="#" target="_self" >立即绑定</a>
+                                          <a class="btn btn-default"  href="/user/qq.html" target="_self" >立即绑定</a>
                                       </div>
                                   </div>
                                   <div class="col-md-12 sns-list">
@@ -291,7 +282,7 @@
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12 text-center">
                                           <a class="btn btn-success" id="delsns" data-id="weiqrcode" style="display:none">取消绑定</a>
-                                          <a class="btn btn-default" href="#" target="_self" >立即绑定</a>
+                                          <a class="btn btn-default" href="/index.php?s=user-snslogin-weiqrcode.html" target="_self" >立即绑定</a>
                                       </div>
                                   </div>
                                   <div class="col-md-12 sns-list">
@@ -308,35 +299,34 @@
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12 text-center">
                                           <a class="btn btn-success" id="delsns" data-id="weibo" style="display:none">取消绑定</a>
-                                          <a class="btn btn-default" href="#" target="_self" >立即绑定</a>
+                                          <a class="btn btn-default" href="/user/weibo.html" target="_self" >立即绑定</a>
                                       </div>
                                   </div>
                               </div>
-<!--修改密码 -->
                               <div class="tab-pane fade" id="tab_5">
-                                  <form class="form-horizontal"  >
+                                  <form class="form-horizontal"  method="post" role="form" action="/member/pwd.html" onSubmit="return false;">
                                       <div class="form-group">
-                                          <label for="oldPassword" class="control-label col-xs-12 col-sm-3">原密码：</label>
+                                          <label for="password" class="control-label col-xs-12 col-sm-3">原密码：</label>
                                           <div class="col-xs-12 col-sm-6">
-                                              <input class="form-control" id="oldPassword" name="oldPassword" type="password" placeholder="您的密码" required>
+                                              <input class="form-control" id="user_password" name="user_password" type="password" placeholder="您的新密码" required>
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label for="newPassword" class="control-label col-xs-12 col-sm-3">新密码：</label>
+                                          <label for="newpass" class="control-label col-xs-12 col-sm-3">新密码：</label>
                                           <div class="col-xs-12 col-sm-6">
-                                              <input class="form-control" id="newPassword" name="newPassword" type="password" placeholder="新密码" required>
+                                              <input class="form-control" id="user_newpassword" name="user_newpassword" type="password" placeholder="新密码" required>
                                           </div>
                                       </div>
                                       <div class="form-group">
-                                          <label for="confirmPassword" class="control-label col-xs-12 col-sm-3">确认密码：</label>
+                                          <label for="verifypass" class="control-label col-xs-12 col-sm-3">重复密码：</label>
                                           <div class="col-xs-12 col-sm-6">
-                                              <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" placeholder="新密码" required>
+                                              <input class="form-control" id="user_repassword" name="user_repassword" type="password" placeholder="重复密码" required>
                                           </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="control-label col-xs-12 col-sm-3"></label>
                                           <div class="col-xs-12 col-sm-6 text-center">
-                                              <button type="button" class="btn btn-success btn-block" id="updateBtn">提交</button>
+                                              <button type="submit" class="btn btn-success btn-block" id="submit" from="form-pwd">提交</button>
                                           </div>
                                       </div>
                                   </form>
@@ -346,7 +336,6 @@
                   </div>
               </div>
           </div>
-<!--   头像上传-->
    <script type="text/javascript">var console = window.console || { log: function () {} };
 var $image = $("#avatar-image");
 // 获取裁切时的四个框
@@ -364,7 +353,7 @@ $("input[type=file]").change(function() {
 	$image.attr('src', url);// 设置url到预览图片上
 	// 调出插件
 	$image.cropper({
-		// 裁切的框形状
+		// 裁切的框形状		   
 		aspectRatio: 1/1,
 		 // 显示预览的位置
 		preview:'.avatar-preview',
@@ -477,9 +466,12 @@ $("#submit-avatar").click(function(e) {
 	var form = document.querySelector("#form-avatar");
 	var formData = new FormData(form);
 	formData.append("file", blob);
-
+	$.showfloatdiv({
+		txt: '头像上传中...',
+		cssname: 'loading'
+	});
 	$.ajax({
-		url: '/user/toUpload',
+		url: '/member/avatar.html',
 		type: 'post',
 		dataType: 'json',
 		data: formData,
@@ -487,29 +479,16 @@ $("#submit-avatar").click(function(e) {
 		processData: false,
 		contentType: false,
 		success: function(r) {
-		    if(r.state==201){
-                alert(r.msg,function () {
-                    //重新登录
-                    location.href="/user/log";
-                });
-            }
-		    if (r.state==200){
-		        alert(r.msg,function () {
-		            $("#avatar").attr("src",r.face);
-                    window.location.reload(true);
-                })
-            }
-	if (r.state==1){
-	    alert(r.msg);
-    }
-
-
+			$.hidediv(r);
+			if (parseInt(r.code) > 0) {
+				$("#avatar").attr("src",r.data+'?'+ Math.random());
+			}
 		},
-		error: function() {
-		alert(r.msg);
+		error: function(r) {
+			$.hidediv(r);
 		},
 	});
-return false;
+	return false;
 });
 //将base64格式图片转换为文件形式
 function dataURLtoBlob(dataurl) {
@@ -530,187 +509,28 @@ $(function () {
 	$(window).resize(function() {
        $(".avatar-view").height($('#preview').height()-25);
     });
-});
+});			
 $(".nav-tabs li a").click(function() {
 	$('#tab_3').removeClass("visibility");
-	$('#tab_3').addClass("tab-pane");
+	$('#tab_3').addClass("tab-pane");		
 
 });
-</script>﻿
-</body>
 
-<script src="https://cdn.jsdelivr.net/npm/jutils-src"></script>
-<!--根据用户名查询用户-->
-<script>
-    //页面加载完成后加载数据
-    //$(document).ready();
-    //$(function(){})
-    $.get("../user/findUserInfo",function (data) {
-        var birthday = jutils.formatDate(new Date(data.birthday),"yyyy-MM-dd");
-        console.log(birthday);
-//将用户名显示到输入框
-        $("#userName").val(data.userName);
-        $("#tel").val(data.tel);
-        $("#email").val(data.email);
-        $("#address").val(data.address);
-        $("#sex").val(data.sex);
-      if (data.birthday!=null){
-          var birthday = jutils.formatDate(new Date(data.birthday),"yyyy-MM-dd");
-          console.log(birthday);
-          $("#birthday").val(birthday);
-      }
-        $("#edu").val(data.edu);
-        $("#industry").val(data.industry);
-        $("#signature").val(data.signature);
-        $("#avatar").attr("src",data.userFace);
-        $("#userBig").html(data.userName);
-    });
-
-    $("#modifyInfoBtn").click(function () {
-        //获取表单信息
-        var data=$("#modifyForm").serialize();
-         $.post("/user/modifyUserInfoByUsername",data,function (data) {
-          if (data.state==201){
-            alert(data.msg,function () {
-                //重新登录
-                location.href="/user/log";
-             })
-             }else{
-         alert(data.msg,function () {
-             window.location.reload(true);
-         })
-         }
-         })
-
-    })
-
-
+//$(document).ready(function(){ 
+//  //alert($(document.body).height())
+//  var mHeight = $('#preview').height();
+//  alert(mHeight)
+//  console.log(mHeight);//0
+// // alert($('.avatar-upload').offset().top)
+////    //初始化高度
+////	$height=$(".container").width()*0.75*0.75/2;
+////    $(".avatar-view").height($height); 
+////	$("#preview").height($height);
+////    //当文档窗口发生改变时 触发  
+////    $(window).resize(function(){
+////		$height=$(".container").width()*0.75*0.75/2;					  
+////        $(".avatar-view").height($height);  
+////    })  
+//}) 
 </script>
-
-<!--修改密码-->
-<script>
-    //给修改按钮添加点击事件
-    $("#updateBtn").click(function () {
-        //获取三个密码
-        var oldPassword = $("#oldPassword").val();
-        var newPassword = $("#newPassword").val();
-        var confirmPassword = $("#confirmPassword").val();
-        //发送Ajax
-        $.post("/user/toUpdatePwd",{"oldPassword":oldPassword,"newPassword":newPassword,"confirmPassword":confirmPassword},
-            function (data) {
-            if (data.state==200){
-                alert(data.msg,function () {
-                    //重新登录
-                    location.href="/user/log";
-                });
-
-            }else {
-                alert(data.msg);
-            }
-
-
-        })
-    })
-</script>
-<!--自定义弹框-->
-<script>
-    window.alert = alert;
-    function alert(data, callback) { //回调函数
-        var alert_bg = document.createElement('div');
-        alert_box = document.createElement('div'),
-            alert_text = document.createElement('div'),
-            alert_btn = document.createElement('button'),
-            textNode = document.createTextNode(data ? data : ''),
-            btnText = document.createTextNode('明白啦!');
-
-        // 控制样式
-        css(alert_bg, {
-            'position': 'fixed',
-            'top': '187px',
-            'left': '880px',
-            'right': '520px',
-            'bottom': '617px',
-            'background-color': 'rgba(0, 0, 0, 0.5)',
-            'z-index': '999999999',
-
-            'background-image':'url(../images/picture/07.jpg)',
-            // 'background-size':'550px,250px',
-            // 'background-position':'center',
-            'background-size':'cover',
-            // 'border-bottom-left-radius':'80px',
-            // 'border-top-left-radius':'10px',
-
-
-        });
-
-        css(alert_box, {
-            'height':'70px',
-            'width': '100%',
-            'max-width': '100%',
-            'font-size': '28px',
-            'text-align': 'center',
-            'background-color': 'rgba(100,100,200,0.7)',
-            // 'border-bottom-left-radius': '43px',
-            'position': 'absolute',
-            'top': '40%',
-            'left': '49.7%',
-            'transform': 'translate(-50%, -50%)',
-            // 'font-family':'RuiHei Bauhaus Kr',
-            'font-weight':'bold',
-            'font-family':'宋体',
-            'background-size':'500px,500px',
-            'background-position':'center',
-
-
-        });
-
-        css(alert_text, {
-            'padding': '20px 15px',
-
-            'color': 'rgba(80,250,250,1)',
-        });
-
-        css(alert_btn, {
-            'padding': '8px 7px',
-            'color': 'rgba(255,255,255,0.9)',
-            'font-weight': '600',
-            'cursor': 'pointer',
-            'background-color': 'rgba(255,170,10,0.7)',
-            'border-radius': '20%',
-            'height':'45px',
-            'width': '110px',
-            'margin-top':'15px',
-            'font-family':'RuiHei Bauhaus Kr',
-            'font-size': '23px',
-            'margin-left':'305px',
-
-        });
-
-        // 内部结构套入
-        alert_text.appendChild(textNode);
-        alert_btn.appendChild(btnText);
-        alert_box.appendChild(alert_text);
-        alert_box.appendChild(alert_btn);
-        alert_bg.appendChild(alert_box);
-
-        // 整体显示到页面内
-        document.getElementsByTagName('body')[0].appendChild(alert_bg);
-
-        // 确定绑定点击事件删除标签
-        alert_btn.onclick = function() {
-            alert_bg.parentNode.removeChild(alert_bg);
-            if (typeof callback =='function') {
-                callback(); //回调
-            }
-        }
-    }
-
-    function css(targetObj, cssObj) {
-        var str = targetObj.getAttribute("style") ? targetObj.getAttribute('style') : '';
-        for (var i in cssObj) {
-            str += i + ':' + cssObj[i] + ';';
-        }
-        targetObj.style.cssText = str;
-    }
-</script>
-</html>
+   ﻿<div class="container"><div class="row"><div class="clearfix text-center"><p class="m-0 text-muted"></p><p class="visible-xs"><a class="text-muted" href="/gb/" title="留言求片">留言求片</a></p></div></div></div></body></html>

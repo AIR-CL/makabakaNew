@@ -413,12 +413,16 @@
   }
 
   //点击详情页后跳转到详情页并查询出封面和漫画名回显
-  function toBroadcastPage(comicId){
-      window.location.href="/comic/toBroadcastPage?comicId="+comicId;
+  function toBroadcasPage(comicId){
+    $.get("/comic/toBroadcasPage",{comicId:comicId},function (data) {
+
+    })
   }
   //给修改按钮绑定comicId到修改也页面并转发
   function updatePage(comicId) {
+    $.get("/comic/updatePage",{comicId:comicId},function (data) {
       window.location.href="/comic/updatePage?comicId="+comicId;
+    })
   }
 
   //给删除按钮绑定函数
@@ -505,7 +509,7 @@
           tds += td;
           var caozuo = '       <td class="text-center">\n' +
             '                    <button type="button" onclick="updatePage(' + tdval.comicId + ')" class="btn bg-olive btn-xs">编辑</button>\n' +
-            '                    <button type="button" onclick="toBroadcastPage(' + tdval.comicId + ')" class="btn bg-olive btn-xs">详情</button>\n' +
+            '                    <button type="button" onclick="toBroadcasPage(' + tdval.comicId + ')" class="btn bg-olive btn-xs">详情</button>\n' +
             '                    <button type="button" onclick="delComic(' + tdval.comicId + ')" class="btn bg-olive btn-xs">删除</button>\n' +
             '                  </td>';
           tds += caozuo;
