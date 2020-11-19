@@ -167,7 +167,7 @@
       </section>
       <!-- 内容头部 /-->
 
-      <form id="addForm">
+      <form id="updateForm">
         <!-- 正文区域 -->
         <section class="content"> <!--产品信息-->
 
@@ -175,28 +175,29 @@
             <div class="row data-type">
 
               <div class="col-md-2 title">动漫名称</div>
+              <input type="hidden" name="comicId" id="comicId">
               <div class="col-md-4 data">
-                <input type="text" class="form-control" name="comicName"
-                       placeholder="动漫名称" >
+                <input readonly="readonly" type="text" class="form-control" name="comicName" id="comicName"
+                       placeholder="动漫名称" value="">
               </div>
 
               <div class="col-md-2 title">播送时间</div>
               <div class="col-md-4 data">
-                <input type="text" class="form-control" name="broadcastTime"
-                       placeholder="播送时间" >
+                <input type="text" class="form-control" name="broadcastTime" id="broadcastTime"
+                       placeholder="播送时间" value="">
               </div>
 
               <div class="col-md-2 title">配音</div>
               <div class="col-md-4 data">
-                <input type="text" class="form-control" name="dubbing"
-                       placeholder="配音" >
+                <input type="text" class="form-control" name="dubbing" id="dubbing"
+                       placeholder="配音" value="">
               </div>
 
 
               <div class="col-md-2 title">动漫类型</div>
               <div class="col-md-4 data">
                 <select class="form-control select2" style="width: 100%"
-                        name="comicType">
+                        name="comicType" id="comicType">
                   <option value="国漫" selected="selected">国漫</option>
                   <option value="日漫">日漫</option>
                 </select>
@@ -205,13 +206,13 @@
               <div class="col-md-2 title">封面上传</div>
               <div class="col-md-4 data">
                 <input type="file" class="form-control" placeholder="封面"
-                       name="comicFace">
+                       name="comicFace" id="comicFace" >
               </div>
 
               <div class="col-md-2 title">动漫状态</div>
               <div class="col-md-4 data">
                 <select class="form-control select2" style="width: 100%"
-                        name="comicState">
+                        name="comicState" id="comicState">
                   <option value="已完结" selected="selected">已完结</option>
                   <option value="更新中">更新中</option>
                 </select>
@@ -274,7 +275,7 @@
           </div>
           <!--订单信息/--> <!--工具栏-->
           <div class="box-tools text-center">
-            <button id="addBtn" class="btn bg-maroon">保存</button>
+            <button id="updateBtn" class="btn bg-maroon">保存</button>
             <button type="button" class="btn bg-default"
                     onclick="history.back(-1);">返回</button>
           </div>
@@ -585,28 +586,48 @@
   //})
 </script>-->
 <script>
-  $("#addBtn").click(function () {
-   // var dataForm = document.getElementById("addForm");
-    var formData=$("#addForm")[0];
-    var data = new FormData(formData);
-    alert(data);
-      $.ajax({
-        async:false,
-        cache:false,
-        url:"/comic/addComic",
-        type: "post",
-        data: data,
-        processData: false,
-        contentType: false,
-        success:function (data) {
-            if (data.state===200){
-              alert(data.msg);
-              window.location.href="/comic/toIndex";
-            }else{
-              alert(data.msg);
-            }
+  $(function () {
+      var url = location.search;
+      if (url.indexOf("?") != -1){
+        var str = url.substr(1);
+        strs = str.split("=");
+        var comicId=strs[1];
+        $.get("/comic/findComicById",{comicId:comicId},function (data) {
+            //根据id把信息回显到页面上
+            $("#comicId").val(data.comicId);
+            $("#comicName").val(data.comicName);
+            $("#broadcastTime").val(data.broadcastTime);
+            $("#dubbing").val(data.dubbing);
+
+            $("#comicFace").val(data.comicFace);//此处赋值不知道如何赋值，comicFace暂时为文件路径字符串
+
+            $("#comicType").val(data.comicType);
+            $("#comicState").val(data.comicState);
+
+        })
+      }
+
+  })
+  $("#updateBtn").click(function () {
+    var dataForm = document.getElementById("updateForm");
+    var data = new FormData(dataForm);
+    $.ajax({
+      async:false,
+      cache:false,
+      url:"/comic/updateComic",
+      type: "post",
+      data: data,
+      processData: false,
+      contentType: false,
+      success:function (data) {
+        if (data.state===200){
+          alert(data.msg);
+          window.location.href="/comic/toIndex";
+        }else{
+          alert(data.msg);
         }
-      })
+      }
+    })
   })
 </script>
 </html>

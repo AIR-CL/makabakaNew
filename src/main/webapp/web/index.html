@@ -34,7 +34,7 @@
         opacity: 0 !important;
       }
       [tsbrowser_force_show] {
-        display: block !important;
+        display: black !important;
         visibility: visible !important;
         opacity: 0;
       }</style></head>
@@ -70,15 +70,12 @@
                 <a href="#" class="create">创作中心</a>
               </div>
             </div>
-            <div class="user-post" style="margin:15px"><a href="/user/broadcast"> <span style="color:white;font-family: 'RuiHei Bauhaus Kr'">欢迎回来:&nbsp;&nbsp;</span><span id="sp" style="color: white;font-size:large;font-family:'楷体';text-align: center;"></span></a></div>
-
-            <div class="user-post" clsaa="link" style="border-radius: 100%;width: 71px;height: 70px;background-color: rgba(0,0,0,0.8)">
-              <div  class="user-post" clsaa="link" style="border-radius: 100%;width: 64px;height: 64px;margin-left: 3px;margin-top: 3px">
-                <img id="avatar" src=""style="border-radius: 100%;width: 64px;height: 64px;">
-              </div>
+            <div class="login-box"><a href="/user/broadcast">玛卡巴卡会员</a></div>
+            <span id="sp" style="color: white"></span>
+            <div class="user-post" clsaa="link" style="border-radius: 100%;width: 68px;height: 67px;background-color: #333333">  <div  class="user-post" clsaa="link" style="border-radius: 100%;background-image: url(../images/picture/04.jpg);background-position:center;background-size:90px;width: 60px;height: 60px;margin-left: 2px;margin-top: 2px"></div>
 
             <div class="user-post__hover header-hover" style="margin-top: 20px;margin-right:-75px">
-              <a href="/user/myCollection" class="shoucang">我的收藏</a>
+              <a href="../web/userCenter.html" class="shoucang">我的收藏</a>
               <a href="/user/userCenter" class="manage">信息设置</a>
               <a href="#" class="create">会员中心</a>
             </div>
@@ -614,15 +611,15 @@
   <script>
     L2Dwidget.init({
       "model": {
-        jsonPath: "https://unpkg.com/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json",<!--这里改模型，前面后面都要改-->
+        jsonPath: "https://unpkg.com/live2d-widget-model-tsumiki@1.0.5/assets/tsumiki.model.json",<!--这里改模型，前面后面都要改-->
         "scale": 1
       },
       "display": {
         "position": "left",<!--设置看板娘的上下左右位置-->
         "width": 330,
-        "height": 690,
-        "hOffset":0,
-        "vOffset": -220
+        "height": 660,
+        "hOffset": 0,
+        "vOffset": -60
       },
       "mobile": {
         "show": true,
@@ -633,6 +630,9 @@
         "opacityOnHover": 0.2
       }
     });</script>
+
+
+
 
 <!--  <%&#45;&#45;// live2d-widget-model-chitose西装男&#45;&#45;%>-->
 <!--  <%&#45;&#45;         //haruto海军男&#45;&#45;%>-->
@@ -670,11 +670,9 @@
   }
   //将获取得到的cookie值
 var cookie = getCookie("username");
-  $("#sp").html(cookie);
-  //根据用户名查找用户信息
-  $.get("../user/findUserInfo",function (data) {
-    $("#avatar").attr("src",data.userFace);
 
-  })
+  $("#sp").html(cookie);
+
+
 </script>
 </html>
