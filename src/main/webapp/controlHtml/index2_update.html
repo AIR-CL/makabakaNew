@@ -167,7 +167,7 @@
       </section>
       <!-- 内容头部 /-->
 
-      <form id="addForm">
+      <form id="updateForm">
         <!-- 正文区域 -->
         <section class="content"> <!--产品信息-->
 
@@ -175,20 +175,21 @@
             <div class="row data-type">
 
               <div class="col-md-2 title">动漫名称</div>
+              <input type="hidden" name="comicId" id="comicId">
               <div class="col-md-4 data">
-                <input type="text" class="form-control" name="comicName"
+                <input readonly="readonly" type="text" class="form-control" name="comicName" id="comicName"
                        placeholder="动漫名称" value="">
               </div>
 
               <div class="col-md-2 title">播送时间</div>
               <div class="col-md-4 data">
-                <input type="text" class="form-control" name="broadcastTime"
+                <input type="text" class="form-control" name="broadcastTime" id="broadcastTime"
                        placeholder="播送时间" value="">
               </div>
 
               <div class="col-md-2 title">配音</div>
               <div class="col-md-4 data">
-                <input type="text" class="form-control" name="dubbing"
+                <input type="text" class="form-control" name="dubbing" id="dubbing"
                        placeholder="配音" value="">
               </div>
 
@@ -196,22 +197,22 @@
               <div class="col-md-2 title">动漫类型</div>
               <div class="col-md-4 data">
                 <select class="form-control select2" style="width: 100%"
-                        name="comicType">
-                  <option value="0" selected="selected">国漫</option>
-                  <option value="1">日漫</option>
+                        name="comicType" id="comicType">
+                  <option value="国漫" selected="selected">国漫</option>
+                  <option value="日漫">日漫</option>
                 </select>
               </div>
 
               <div class="col-md-2 title">封面上传</div>
               <div class="col-md-4 data">
                 <input type="file" class="form-control" placeholder="封面"
-                       name="comicFace">
+                       name="comicFace" id="comicFace" >
               </div>
 
               <div class="col-md-2 title">动漫状态</div>
               <div class="col-md-4 data">
                 <select class="form-control select2" style="width: 100%"
-                        name="comicState">
+                        name="comicState" id="comicState">
                   <option value="已完结" selected="selected">已完结</option>
                   <option value="更新中">更新中</option>
                 </select>
@@ -274,7 +275,7 @@
           </div>
           <!--订单信息/--> <!--工具栏-->
           <div class="box-tools text-center">
-            <button id="addBtn" class="btn bg-maroon">保存</button>
+            <button id="updateBtn" class="btn bg-maroon">保存</button>
             <button type="button" class="btn bg-default"
                     onclick="history.back(-1);">返回</button>
           </div>
@@ -283,7 +284,6 @@
       </form>
   </div>
 </div>
-
 <script src="../controlHtml/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="../controlHtml/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -387,30 +387,247 @@
 <script
   src="../controlHtml/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 </body>
-
-<script>
-  $("#addBtn").click(function () {
-   // var dataForm = document.getElementById("addForm");
-    var formData=$("#addForm")[0];
-    var data = new FormData(formData);
-    alert(data);
-      $.ajax({
-        async:false,
-        cache:false,
-        url:"/comic/addComic",
-        type: "post",
-        data: data,
-        processData: false,
-        contentType: false,
-        success:function (data) {
-            if (data.state===200){
-              alert(data.msg);
-              window.location.href="/comic/toIndex";
-            }else{
-              alert(data.msg);
-            }
+<!--<script>
+  <script type="text/javascript">var console = window.console || { log: function () {} };
+  var $image = $("#avatar-image");
+  // 获取裁切时的四个框
+  var x = $("input[name=x]");
+  var y = $("input[name=y]");
+  var w = $("input[name=w]");
+  var h = $("input[name=h]");
+  //选择图片时预览图片 并 调用cropper插件
+  $("input[type=file]").change(function() {
+    // 先消毁，清除一下插件，否则连续调用插件时会失败
+    $image.cropper("destroy");
+    // this.files[0]：获取当前图片并转成URL地址
+    var url = getObjectUrl(this.files[0]);
+    console.log(url)
+    $image.attr('src', url);// 设置url到预览图片上
+    // 调出插件
+    $image.cropper({
+      // 裁切的框形状
+      aspectRatio: 1/1,
+      // 显示预览的位置
+      preview:'.avatar-preview',
+      // 显示模式：图片不能无限缩小，但可以放大
+      viewMode: 1,
+      // 裁切时把参数保存到表单中
+      crop: function(event) {
+        x.val(event.detail.x);
+        y.val(event.detail.y);
+        w.val(event.detail.width);
+        h.val(event.detail.height);
+        w.val(event.detail.width);
+      }
+    });
+  });
+  // 预览时需要使用下面这个函数转换一下
+  function getObjectUrl(file) {
+    var url = null;
+    if (window.createObjectURL != undefined) {
+      url = window.createObjectURL(file)
+    } else if (window.URL != undefined) {
+      url = window.URL.createObjectURL(file)
+    } else if (window.webkitURL != undefined) {
+      url = window.webkitURL.createObjectURL(file)
+    }
+    return url
+  }
+  // Methods
+  $('.avatar-tool').on('click', '[data-method]', function() {
+    var $this = $(this);
+    var data = $this.data();
+    var cropper = $image.data('cropper');
+    var cropped;
+    var $target;
+    var result;
+    if ($this.prop('disabled') || $this.hasClass('disabled')) {
+      return;
+    }
+    if (cropper && data.method) {
+      data = $.extend({}, data); // Clone a new one
+      if (typeof data.target !== 'undefined') {
+        $target = $(data.target);
+        if (typeof data.option === 'undefined') {
+          try {
+            data.option = JSON.parse($target.val());
+          } catch (e) {
+            console.log(e.message);
+          }
         }
-      })
+      }
+      cropped = cropper.cropped;
+      switch (data.method) {
+        case 'rotate':
+          if (cropped) {
+            $image.cropper('clear');
+          }
+          break;
+        case 'getCroppedCanvas':
+          if (uploadedImageType === 'image/jpeg') {
+            if (!data.option) {
+              data.option = {};
+            }
+            data.option.fillColor = '#fff';
+          }
+          break;
+      }
+      result = $image.cropper(data.method, data.option, data.secondOption);
+      switch (data.method) {
+        case 'rotate':
+          if (cropped) {
+            $image.cropper('crop');
+          }
+          break;
+        case 'scaleX':
+        case 'scaleY':
+          $(this).data('option', -data.option);
+          break;
+        case 'getCroppedCanvas':
+          if (result) {
+            // Bootstrap's Modal
+            $('#getCroppedCanvasModal').modal().find('.modal-body').html(result);
+
+            if (!$download.hasClass('disabled')) {
+              download.download = uploadedImageName;
+              $download.attr('href', result.toDataURL(uploadedImageType));
+            }
+          }
+          break;
+        case 'destroy':
+          if (uploadedImageURL) {
+            URL.revokeObjectURL(uploadedImageURL);
+            uploadedImageURL = '';
+            $image.attr('src', originalImageURL);
+          }
+          break;
+      }
+      if ($.isPlainObject(result) && $target) {
+        try {
+          $target.val(JSON.stringify(result));
+        } catch (e) {
+          console.log(e.message);
+        }
+      }
+    }
+  });
+  $("#submit-avatar").click(function(e) {
+    var $imgData = $image.cropper('getCroppedCanvas');
+    var dataurl = $imgData.toDataURL('image/jpg');
+    var blob = dataURLtoBlob(dataurl);
+    var form = document.querySelector("#form-avatar");
+    var formData = new FormData(form);
+    formData.append("file", blob);
+    $.showfloatdiv({
+      txt: '头像上传中...',
+      cssname: 'loading'
+    });
+    $.ajax({
+      url: '/member/avatar.html',
+      type: 'post',
+      dataType: 'json',
+      data: formData,
+      cache: false,
+      processData: false,
+      contentType: false,
+      success: function(r) {
+        $.hidediv(r);
+        if (parseInt(r.code) > 0) {
+          $("#avatar").attr("src",r.data+'?'+ Math.random());
+        }
+      },
+      error: function(r) {
+        $.hidediv(r);
+      },
+    });
+    return false;
+  });
+  //将base64格式图片转换为文件形式
+  function dataURLtoBlob(dataurl) {
+    var arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n&#45;&#45;) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {
+      type: mime
+    });
+  }
+  $(function () {
+    $(".avatar-view").height($('#preview').height()-25);
+    $(window).resize(function() {
+      $(".avatar-view").height($('#preview').height()-25);
+    });
+  });
+  $(".nav-tabs li a").click(function() {
+    $('#tab_3').removeClass("visibility");
+    $('#tab_3').addClass("tab-pane");
+
+  });
+
+  //$(document).ready(function(){
+  //  //alert($(document.body).height())
+  //  var mHeight = $('#preview').height();
+  //  alert(mHeight)
+  //  console.log(mHeight);//0
+  // // alert($('.avatar-upload').offset().top)
+  ////    //初始化高度
+  ////	$height=$(".container").width()*0.75*0.75/2;
+  ////    $(".avatar-view").height($height);
+  ////	$("#preview").height($height);
+  ////    //当文档窗口发生改变时 触发
+  ////    $(window).resize(function(){
+  ////		$height=$(".container").width()*0.75*0.75/2;
+  ////        $(".avatar-view").height($height);
+  ////    })
+  //})
+</script>-->
+<script>
+  $(function () {
+      var url = location.search;
+      if (url.indexOf("?") != -1){
+        var str = url.substr(1);
+        strs = str.split("=");
+        var comicId=strs[1];
+        $.get("/comic/findComicById",{comicId:comicId},function (data) {
+            //根据id把信息回显到页面上
+            $("#comicId").val(data.comicId);
+            $("#comicName").val(data.comicName);
+            $("#broadcastTime").val(data.broadcastTime);
+            $("#dubbing").val(data.dubbing);
+
+            $("#comicFace").val(data.comicFace);//此处赋值不知道如何赋值，comicFace暂时为文件路径字符串
+
+            $("#comicType").val(data.comicType);
+            $("#comicState").val(data.comicState);
+
+        })
+      }
+
+  })
+  $("#updateBtn").click(function () {
+    var dataForm = document.getElementById("updateForm");
+    var data = new FormData(dataForm);
+    $.ajax({
+      async:false,
+      cache:false,
+      url:"/comic/updateComic",
+      type: "post",
+      data: data,
+      processData: false,
+      contentType: false,
+      success:function (data) {
+        if (data.state===200){
+          alert(data.msg);
+          window.location.href="/comic/toIndex";
+        }else{
+          alert(data.msg);
+        }
+      }
+    })
   })
 </script>
 </html>
