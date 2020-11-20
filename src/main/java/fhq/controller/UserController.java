@@ -110,35 +110,14 @@ public class UserController {
     @PostMapping("/modifyUserInfoByUsername")
     @ResponseBody
     public  Map<String,Object> modifyUserInfoByName(String userName, String address, String tel, String sex,
-                                                    String birthday,String edu,String signature,String industry,String email){
-        Map<String, Object> map = userService.modifyUserByName(userName,address,tel,sex,
-                birthday,edu,signature,industry,email);
-        return map;
-//更新密码
-    @PostMapping("/toUpdatePwd")
-    @ResponseBody
-    public Map<String,Object> toUpdatePwd(String oldPassword,String newPassword,String confirmPassword,HttpServletRequest req){
-        Map<String, Object> map = userService.toUpdatePassword(oldPassword, newPassword, confirmPassword, req);
+                                                    String birthday,String edu,String signature,String industry,String email) {
+        Map<String, Object> map = userService.modifyUserByName(userName, address, tel, sex,
+                birthday, edu, signature, industry, email);
         return map;
     }
-    @GetMapping("/findUserInfo")
-    @ResponseBody
-    //根据username查询当前用户信息
-    public User findUserInfoByName(HttpServletRequest request){
-        //获取用户名
-        String username = (String)request.getSession().getAttribute("username");
-        User user = userService.findUserInfoByUsername(username);
-        return user;
-    }
-    //根据用户名修改信息
-    @PostMapping("/modifyUserInfoByUsername")
-    @ResponseBody
-    public  Map<String,Object> modifyUserInfoByName(String userName, String address, String tel, String sex,
-                                                    String birthday,String edu,String signature,String industry,String email){
-        Map<String, Object> map = userService.modifyUserByName(userName,address,tel,sex,
-                birthday,edu,signature,industry,email);
-        return map;
-    }
+
+
+
     //头像上传
     @PostMapping("/toUpload")
     @ResponseBody

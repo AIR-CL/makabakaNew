@@ -24,17 +24,9 @@ public interface UserMapper {
     int modifyUserInfoByUsername(User user);
     //上传头像
     int uploadFace(@Param("username") String username,@Param("face") String face);
-    //根据用户名修改密码
-    int toUpdatePassword(@Param("newPassword") String newPassword,@Param("username") String username,@Param("newSalt") String newSalt);
-    //根据用户名查询当前用户
-    User findUserInfoByUsername(String username);
-    //根据用户名修改信息
-    int modifyUserInfoByUsername(User user);
-    //上传头像
-    int uploadFace(@Param("username") String username,@Param("face") String face);
     //提交留言
     int submitAdvice(Advice advice);
-
+    //查询留言
      List<Advice> selectAdvice(String adviceType);
 
 }

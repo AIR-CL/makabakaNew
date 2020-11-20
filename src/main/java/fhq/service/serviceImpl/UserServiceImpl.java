@@ -1,6 +1,7 @@
 package fhq.service.serviceImpl;
 
 import fhq.mapper.UserMapper;
+import fhq.pojo.Advice;
 import fhq.pojo.User;
 import fhq.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
