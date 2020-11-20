@@ -14,10 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -337,6 +334,12 @@ public class UserServiceImpl implements UserService {
             map.put("msg","留言失败");
         }
         return map;
+    }
+    //查询留言
+    @Override
+    public List<Advice> selectAdvice(String adviceType) {
+        List<Advice> advice = userMapper.selectAdvice(adviceType);
+        return advice;
     }
 
 

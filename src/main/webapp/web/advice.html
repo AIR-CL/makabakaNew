@@ -101,15 +101,15 @@
             <div class="user-box clearfix" id="data">
                 <div class="user-center-title pt-0 pl-0">
                     <ul class="user_nav_get" id="pids">
-                        <li class="active" data-url="/index.php?s=user-center-gb-op-1.html">全部留言</li>
-                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-1-p-1.html">其他留言<span></span></li>
-                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-2-p-1.html">影片报错<span></span></li>
-                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-3-p-1.html">网站建议<span></span></li>
-                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-4-p-1.html">访问故障<span></span></li>
+                        <li class="active" data-url="/index.php?s=user-center-gb-op-1.html" onclick="selectAdvice()">全部留言</li>
+                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-1-p-1.html" onclick="selectAdvice('其他')">其他留言<span></span></li>
+                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-2-p-1.html" onclick="selectAdvice('报错')">影片报错<span></span></li>
+                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-3-p-1.html" onclick="selectAdvice('建议')">网站建议<span></span></li>
+                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-4-p-1.html" onclick="selectAdvice('故障')">访问故障<span></span></li>
                     </ul>
                     <button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#exampleModal" onclick="setDefault()" data-whatever="@mdo">发布留言</button>
                 </div>
-                <div class="loading text-center">留言加载中...</div>
+                <div class="loading text-center"><table id="tb"></table></div>
             </div>
         </div>
     </div>
@@ -158,6 +158,7 @@
 
 
 <script type="text/javascript">
+    var tb=document.getElementById("tb");
     function setDefault() {
         getType(4);
 
@@ -205,9 +206,41 @@
         })
 
     }
+   /*复现留言*/
+   function selectAdvice(type) {
+    if(type!=null){
+        var type=type;
+    }
+       $.ajax({
+            url:"/user/selectAdvice",
+            type:"post",
+            dataType:"json",
+            data:{type:type},
+       success:function (data) {
+           var str="<tr>\n" +
+               "      <td>类型</td>\n" +
+               "      <td>标题</td>\n" +
+               "      <td>内容</td>\n" +
+               "    </tr>"
+           for(i in data){
+               str += "<tr>" +
+                   "<td>adviceType</td>" +
+                   "<td>adviceTitle</td>" +
+                   "<td><textarea>adviceContent</textarea></td>" +
+                   "</tr>";
+               str=str.replace("adviceType",data[i].adviceType);
+               str=str.replace("adviceTitle",data[i].adviceTitle);
+               str=str.replace("adviceContent",data[i].adviceContent);
+           }
+           tb.innerHTML=str;
+
+       }
 
 
+   })
 
+   }
+    $(document).ready(selectAdvice())
 
 
 

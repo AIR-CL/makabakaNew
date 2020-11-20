@@ -48,4 +48,13 @@
     <insert id="submitAdvice" parameterType="Advice">
         insert into tb_advice(advice_id,user_id, advice_type, advice_title, advice_content) VALUES(null,#{userId},#{adviceType},#{adviceTitle},#{adviceContent})
     </insert>
+    <!--查询留言-->
+    <select id="selectAdvice" resultType="Advice" parameterType="String">
+        select advice_type,advice_title,advice_content from tb_advice
+        <where>
+            <if test="_parameter!=null">
+                and advice_type=#{_parameter}
+            </if>
+        </where>
+    </select>
 </mapper>

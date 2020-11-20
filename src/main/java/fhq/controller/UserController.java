@@ -1,5 +1,6 @@
 package fhq.controller;
 
+import fhq.pojo.Advice;
 import fhq.pojo.User;
 import fhq.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -142,5 +144,14 @@ public class UserController {
         String adviceType=(String) session.getAttribute("type");
         Map<String, Object> map = userService.submitAdvice(userId, adviceType, adviceTitle, adviceContent);
         return map;
+    }
+    //查询留言
+    @PostMapping("/selectAdvice")
+    @ResponseBody
+    public List<Advice> selectAdvice(String type){
+        String adviceType=type;
+        List<Advice> advice = userService.selectAdvice(adviceType);
+        return advice;
+
     }
 }

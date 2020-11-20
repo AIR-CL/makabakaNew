@@ -5,6 +5,8 @@ import fhq.pojo.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 //用户模块持久层
 public interface UserMapper {
@@ -24,5 +26,7 @@ public interface UserMapper {
     int uploadFace(@Param("username") String username,@Param("face") String face);
     //提交留言
     int submitAdvice(Advice advice);
+
+     List<Advice> selectAdvice(String adviceType);
 
 }
