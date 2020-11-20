@@ -20,8 +20,12 @@ public interface BComicService {
     Map<String,Object> addComic(MultipartFile file, Comic comic, HttpServletRequest request);
 
     //根据id查询一条数据
-    Comic findComicById(Integer comicId,HttpServletRequest request);
+    Comic findComicById(Integer comicId);
 
     //根据动漫id修改番剧信息
     Map<String,Object> updateComic(Comic comic,MultipartFile file,HttpServletRequest request);
+
+    //查询所有番剧信息首页
+    List<Comic> findAllComicInfo();
+
 }

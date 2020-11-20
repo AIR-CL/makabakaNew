@@ -20,6 +20,8 @@ public interface BComicMapper {
 
     //根据id修改
     int updateComic(Comic comic);
+    //主页查询所有
+    List<Comic> findAllComicInfo();
 
 
 }

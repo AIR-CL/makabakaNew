@@ -7,10 +7,6 @@
 -->
 
 <mapper namespace="fhq.mapper.BComicMapper">
-    <!--    驼峰映射-->
-    <resultMap id="ComicMapper" type="Comic" autoMapping="true">
-        <id property="comic_id" column="comicId"></id>
-    </resultMap>
 
     <!--查询所有的番剧的信息-->
     <select id="findAllComic" parameterType="String" resultType="Comic">
@@ -52,4 +48,9 @@
         update tb_comic set comic_state=#{comicState},broadcast_time=#{broadcastTime},dubbing=#{dubbing},comic_type=#{comicType},
                             comic_face=#{comicFace} where comic_id=#{comicId}
     </update>
+
+<!--    主页查询所有番剧信息-->
+    <select id="findAllComicInfo" resultType="Comic">
+select * from tb_comic
+    </select>
 </mapper>

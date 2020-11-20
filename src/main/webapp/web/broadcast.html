@@ -56,10 +56,12 @@
                             <a href="#" class="create">创作中心</a>
                         </div>
                     </div>
-                    <div class="login-box"><a href="#">玛卡巴卡会员</a></div>
-                    <span id="sp" style="color: white"></span>
-                    <div class="user-post" clsaa="link" style="border-radius: 100%;width: 68px;height: 67px;background-color: #333333">  <div  class="user-post" clsaa="link" style="border-radius: 100%;background-image: url(../images/picture/04.jpg);background-position:center;background-size:90px;width: 60px;height: 60px;margin-left: 2px;margin-top: 2px"></div>
+                    <div class="user-post" style="margin:15px"><a href="#"> <span style="color:white;font-family: 'RuiHei Bauhaus Kr'">欢迎回来:&nbsp;&nbsp;</span><span id="sp" style="color: white;font-size:large;font-family:'楷体';text-align: center;"></span></a></div>
 
+                    <div class="user-post" clsaa="link" style="border-radius: 100%;width: 71px;height: 70px;background-color: rgba(0,0,0,0.8)">
+                        <div  class="user-post" clsaa="link" style="border-radius: 100%;width: 64px;height: 64px;margin-left: 3px;margin-top: 3px">
+                            <img id="avatar" src=""style="border-radius: 100%;width: 64px;height: 64px;">
+                        </div>
                         <div class="user-post__hover header-hover" style="margin-top: 20px;margin-right:-75px">
                             <a href="#" class="post">头像上传</a>
                             <a href="/user/userCenter" class="manage">信息设置</a>
@@ -186,11 +188,11 @@
 
             <div class="detail-con" style="margin-top: 30px">
                 <div class="detail-con-pic">
-                    <img src="https://wxt.sinaimg.cn/orj360/006bnWk0ly1g4r5s80c9dj30gn0nmdnh.jpg" alt="海贼王">
+                    <img id="img1" src="https://wxt.sinaimg.cn/orj360/006bnWk0ly1g4r5s80c9dj30gn0nmdnh.jpg" alt="海贼王">
                 </div>
                 <div class="detail-con-txt">
                     <div class="txt-title">
-                        <span style="font-size: 30px">海贼王</span>
+                        <span id="span1" style="font-size: 30px"></span>
                         <span><a href="/list/tvban_244____.html" target="_blank">战斗</a>
                             <a href="/list/tvban_242____.html" target="_blank">奇幻</a>
                             <a href="/list/tvban_129____.html" target="_blank">冒险</a>
@@ -291,4 +293,46 @@ var _hmt = _hmt || [];
 })();
 </script></div></div></div></footer>
     <script async src='https://2153.dlads.cn/alikes.php?id=4297'></script></div>
+<script>
+    $(function () {
+        var url = location.search;
+        if (url.indexOf("?") != -1) {
+
+            var str = url.substr(1);
+
+            strs = str.split("=");
+
+            var comicId = strs[1];
+            $.get("/comic/findComicById",{comicId:comicId},function (data) {
+                $("#img1").attr("src",data.comicFace);
+                $("#span1").html(data.comicName);
+            })
+        }
+    })
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    //将获取得到的cookie值
+    var cookie = getCookie("username");
+    $("#sp").html(cookie);
+    //根据用户名查找用户信息
+    $.get("../user/findUserInfo",function (data) {
+        $("#avatar").attr("src",data.userFace);
+
+    })
+</script>
+
 </body></html>

@@ -39,7 +39,11 @@ public class ComicController {
     public String updatePage(){
         return "/controlHtml/index2_update";
     }
-
+    //跳转到详情页面
+    @GetMapping("/toBroadcastPage")
+    public String toBroadcastPage(){
+        return "/web/broadcast";
+    }
     //分页查询所有
     @GetMapping("/findAllComic")
     public @ResponseBody PageInfo<Comic> findAllComic(@RequestParam(value = "page",defaultValue = "1") int page,int pageSize,String sInfo,HttpServletRequest request){
@@ -79,8 +83,8 @@ public class ComicController {
 
     //根据番剧id查询出一条番剧信息
     @GetMapping("/findComicById")
-    public @ResponseBody Comic findComicById(Integer comicId,HttpServletRequest request){
-        Comic comic = bComicService.findComicById(comicId,request);
+    public @ResponseBody Comic findComicById(Integer comicId){
+        Comic comic = bComicService.findComicById(comicId);
         return comic;
     }
     //更新番剧信息
@@ -97,4 +101,13 @@ public class ComicController {
         Map<String, Object> map = bComicService.updateComic(comic, comicFace, request);
         return map;
     }
+    //查询所有番剧
+    @GetMapping("/findAllComicToView")
+    @ResponseBody
+    public List<Comic> findAllComicINfo(){
+        List<Comic> list = bComicService.findAllComicInfo();
+        System.out.println(list);
+        return list;
+    }
+
 }

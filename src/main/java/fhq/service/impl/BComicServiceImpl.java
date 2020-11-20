@@ -111,7 +111,7 @@ public class BComicServiceImpl implements BComicService {
     }
 
     @Override
-    public Comic findComicById(Integer comicId,HttpServletRequest request) {
+    public Comic findComicById(Integer comicId) {
         Comic comic = bComicMapper.findComicById(comicId);
         return comic;
     }
@@ -164,4 +164,11 @@ public class BComicServiceImpl implements BComicService {
         }
         return map;
     }
+
+    @Override
+    public List<Comic> findAllComicInfo() {
+        List<Comic> list = bComicMapper.findAllComicInfo();
+        return list;
+    }
+
 }
