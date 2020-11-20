@@ -205,11 +205,11 @@
                         <p><span>最后更新：1天前</span></p></div>
                     <div class="txt-btn">
                         <div class="sect-btn-sc layui-btn" id="love" data-type="love" data-id="140" data-cid="62">
-                            <i class="glyphicon glyphicon-star-empty">&#xe600;</i> 收藏
+                            <i class="glyphicon glyphicon-star-empty" onclick="subscribe()">&#xe600;</i> 收藏
                         </div>
                         <div class="sect-show-sc">
                             <div class="cancel layui-btn" id="yeslove" data-type="love" data-id="140" data-cid="62">
-                                <i class="glyphicon glyphicon-star">&#xe658;</i> 已收
+                                <i class="glyphicon glyphicon-star" >&#xe658;</i> 已收
                         	</div>
                         </div>
                     <div class="sect-btn-dy layui-btn" id="remind" data-type="remind" data-id="140" data-cid="62">
@@ -292,3 +292,31 @@ var _hmt = _hmt || [];
 </script></div></div></div></footer>
     <script async src='https://2153.dlads.cn/alikes.php?id=4297'></script></div>
 </body></html>
+<script>
+    function subscribe() {
+        alert("11111")
+        $.ajax({
+            url:"/subscribe/subscribeComic",
+            type:"post",
+            datatype:"json",
+            success:function (data) {
+                if (data.state=200){
+                alert(data.msg)
+                }else {
+                    alert(data.msg)
+                }
+            },
+            error:function () {
+                alert("666666")
+            }
+
+
+
+
+        })
+
+    }
+
+    
+    
+</script>

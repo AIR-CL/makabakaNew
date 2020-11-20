@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 映射文件，存放SQL
+	namespace是映射文件(多个mapper文件)的唯一标志
+-->
+<mapper namespace="fhq.mapper.SubscribeMapper">
+    <!--查询收藏-->
+    <select id="selectSubscribe" parameterType="fhq.pojo.Subscribe" resultType="fhq.pojo.Subscribe">
+        select * from tb_collection where user_id=#{userId} and comic_id=#{comicId}
+    </select>
+
+
+
+    <!--添加收藏-->
+    <update id="collect" parameterType="fhq.mapper.SubscribeMapper">
+        update tb_collection set user_id=#{userId},comic_id=#{comicId}
+    </update>
+</mapper>

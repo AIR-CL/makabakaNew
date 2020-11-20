@@ -5,6 +5,8 @@
 <!-- 映射文件，存放SQL
 	namespace是映射文件(多个mapper文件)的唯一标志
 -->
+
+
 <mapper namespace="fhq.mapper.UserMapper">
 <!--    驼峰映射-->
     <resultMap id="User" type="User" autoMapping="true">
@@ -24,4 +26,26 @@
         select * from tb_user
         where user_name=#{username} and user_password=#{password}
     </select>
+<!--    根据用户名修改用户密码-->
+    <update id="toUpdatePassword">
+         update tb_user set user_password=#{newPassword},salt=#{newSalt} where user_name=#{username}
+    </update>
+<!--    根据用户名查询用户信息-->
+    <select id="findUserInfoByUsername" resultMap="User">
+        select *from tb_user
+        where user_name=#{username}
+    </select>
+<!--    根据用户名修改用户信息-->
+   <update id="modifyUserInfoByUsername" parameterType="User">
+       update tb_user set tel=#{tel},email=#{email},edu=#{edu},sex=#{sex},signature=#{signature},
+                          industry=#{industry},birthday=#{birthday},address=#{address} where user_name=#{userName}
+   </update>
+<!--    更新头像-->
+    <update id="uploadFace">
+        update tb_user set user_face=#{face} where user_name=#{username}
+    </update>
+    <!--提交留言-->
+    <insert id="submitAdvice" parameterType="Advice">
+        insert into tb_advice(advice_id,user_id, advice_type, advice_title, advice_content) VALUES(null,#{userId},#{adviceType},#{adviceTitle},#{adviceContent})
+    </insert>
 </mapper>
