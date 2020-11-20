@@ -70,7 +70,7 @@
                 <a href="#" class="create">创作中心</a>
               </div>
             </div>
-            <div class="user-post" style="margin:15px"><a href="/user/broadcast"> <span style="color:white;font-family: 'RuiHei Bauhaus Kr'">欢迎回来:&nbsp;&nbsp;</span><span id="sp" style="color: white;font-size:large;font-family:'楷体';text-align: center;"></span></a></div>
+            <div class="user-post" style="margin:15px"><a href="#"> <span style="color:white;font-family: 'RuiHei Bauhaus Kr'">欢迎回来:&nbsp;&nbsp;</span><span id="sp" style="color: white;font-size:large;font-family:'楷体';text-align: center;"></span></a></div>
 
             <div class="user-post" clsaa="link" style="border-radius: 100%;width: 71px;height: 70px;background-color: rgba(0,0,0,0.8)">
               <div  class="user-post" clsaa="link" style="border-radius: 100%;width: 64px;height: 64px;margin-left: 3px;margin-top: 3px">
@@ -219,68 +219,69 @@
       <div class="banner-list fr">
         <ul>
           <li>
-            <a href="#">
-              <img src="../images/cont/main_pic.jpg" alt="#">
+            <a href="#" id="href1">
+              <img id="img1" src="../images/cont/main_pic.jpg" alt="#">
               <div class="info">
-                <p class="title">【初音ミク】39 TECHNO【八王子P】</p>
-                <p class="author">up主：丧尸の桑</p>
-                <p class="play">播放：48243</p>
+                <p class="title" id="title1">【初音ミク】39 TECHNO【八王子P】</p>
+                <p class="author" id="type1">up主：丧尸の桑</p>
+                <p class="play"id="play1">播放：48243</p>
               </div>
             </a>
           </li>
           <li>
-            <a href="#">
-              <img src="../images/cont/main_pic.jpg" alt="#">
+            <a href="#" id="href2">
+              <img id="img2" src="../images/cont/main_pic.jpg" alt="#">
               <div class="info">
-                <p class="title">【初音ミク】39 TECHNO【八王子P】</p>
-                <p class="author">up主：丧尸の桑</p>
-                <p class="play">播放：48243</p>
+                <p class="title"id="title2">【初音ミク】39 TECHNO【八王子P】</p>
+                <p class="author"id="type2">up主：丧尸の桑</p>
+                <p class="play"id="play2">播放：48243</p>
               </div>
             </a>
           </li>
           <li>
-            <a href="#">
-              <img src="../images/cont/main_pic.jpg" alt="#">
+            <a href="#" id="href3">
+              <img id="img3" src="../images/cont/main_pic.jpg" alt="#">
               <div class="info">
-                <p class="title">【初音ミク】39 TECHNO【八王子P】</p>
-                <p class="author">up主：丧尸の桑</p>
-                <p class="play">播放：48243</p>
+                <p class="title"id="title3">【初音ミク】39 TECHNO【八王子P】</p>
+                <p class="author" id="type3">up主：丧尸の桑</p>
+                <p class="play"id="play3">播放：48243</p>
               </div>
             </a>
           </li>
           <li>
-            <a href="#">
-              <img src="../images/cont/main_pic.jpg" alt="#">
+            <a href="#" id="href4">
+              <img id="img4" src="../images/cont/main_pic.jpg" alt="#">
               <div class="info">
-                <p class="title">【初音ミク】39 TECHNO【八王子P】</p>
-                <p class="author">up主：丧尸の桑</p>
-                <p class="play">播放：48243</p>
+                <p class="title"id="title4">【初音ミク】39 TECHNO【八王子P】</p>
+                <p class="author" id="type4">up主：丧尸の桑</p>
+                <p class="play"id="play4">播放：48243</p>
               </div>
             </a>
           </li>
           <li>
-            <a href="#">
-              <img src="../images/cont/main_pic.jpg" alt="#">
+            <a href="#" id="href5">
+              <img id="img5"src="../images/cont/main_pic.jpg" alt="#">
               <div class="info">
-                <p class="title">【初音ミク】39 TECHNO【八王子P】</p>
-                <p class="author">up主：丧尸の桑</p>
-                <p class="play">播放：48243</p>
+                <p class="title"id="title5">【初音ミク】39 TECHNO【八王子P】</p>
+                <p class="author" id="type5">up主：丧尸の桑</p>
+                <p class="play"id="play5">播放：48243</p>
               </div>
             </a>
           </li>
           <li>
-            <a href="#">
-              <img src="../images/cont/main_pic.jpg" alt="#">
+            <a href="#" id="href6">
+              <img id="img6"src="../images/cont/main_pic.jpg" alt="#">
               <div class="info">
-                <p class="title">【初音ミク】39 TECHNO【八王子P】</p>
-                <p class="author">up主：丧尸の桑</p>
-                <p class="play">播放：48243</p>
+                <p class="title"id="title6">【初音ミク】39 TECHNO【八王子P】</p>
+                <p class="author" id="type6">up主：丧尸の桑</p>
+                <p class="play"id="play6">播放：48243</p>
               </div>
             </a>
           </li>
+
         </ul>
-        <a href="#" class="btn btn-prev">昨日</a>
-        <a href="#" class="btn btn-next">一周</a>
+        <a href="/user/index" class="btn btn-prev">昨日</a>
+        <a href="/user/index" class="btn btn-next">一周</a>
       </div>
     </div>
   </div>
@@ -676,5 +677,131 @@ var cookie = getCookie("username");
     $("#avatar").attr("src",data.userFace);
 
   })
+  //查询所有番剧
+  $.get("/comic/findAllComicToView",function (data) {
+
+    var arr = randomArr(data.length-1);
+    var  list=RandomNumBoth(arr,6)
+
+    $("#img1").attr("src",data[list[0]].comicFace);
+    $("#img2").attr("src",data[list[1]].comicFace);
+    $("#img3").attr("src",data[list[2]].comicFace);
+    $("#img4").attr("src",data[list[3]].comicFace);
+    $("#img5").attr("src",data[list[4]].comicFace);
+    $("#img6").attr("src",data[list[5]].comicFace);
+
+    $("#title1").html(data[list[0]].comicName);
+    $("#title2").html(data[list[1]].comicName);
+    $("#title3").html(data[list[2]].comicName);
+    $("#title4").html(data[list[3]].comicName);
+    $("#title5").html(data[list[4]].comicName);
+    $("#title6").html(data[list[5]].comicName);
+
+    $("#play1").html("播放量:"+"&nbsp;&nbsp;&nbsp;"+data[list[0]].clickFreq);
+    $("#play2").html("播放量:"+"&nbsp;&nbsp;&nbsp;"+data[list[1]].clickFreq);
+    $("#play3").html("播放量:"+"&nbsp;&nbsp;&nbsp;"+data[list[2]].clickFreq);
+    $("#play4").html("播放量:"+"&nbsp;&nbsp;&nbsp;"+data[list[3]].clickFreq);
+    $("#play5").html("播放量:"+"&nbsp;&nbsp;&nbsp;"+data[list[4]].clickFreq);
+    $("#play6").html("播放量:"+"&nbsp;&nbsp;&nbsp;"+data[list[5]].clickFreq);
+
+    $("#type1").html("类型:"+"&nbsp;&nbsp;&nbsp;"+data[list[0]].comicType);
+    $("#type2").html("类型:"+"&nbsp;&nbsp;&nbsp;"+data[list[1]].comicType);
+    $("#type3").html("类型:"+"&nbsp;&nbsp;&nbsp;"+data[list[2]].comicType);
+    $("#type4").html("类型:"+"&nbsp;&nbsp;&nbsp;"+data[list[3]].comicType);
+    $("#type5").html("类型:"+"&nbsp;&nbsp;&nbsp;"+data[list[4]].comicType);
+    $("#type6").html("类型:"+"&nbsp;&nbsp;&nbsp;"+data[list[5]].comicType);
+
+    $(function(){
+      var comicId1 = data[list[0]].comicId;
+      $("#href1").on("click",function(){
+        jump1();
+      });
+      function jump1(){
+        url = "/web/broadcast.html?comicId="+comicId1;//此处拼接内容
+        window.location.href = url;
+      } });
+
+    $(function(){
+      var comicId2 = data[list[1]].comicId;
+      $("#href2").on("click",function(){
+        jump1();
+      });
+      function jump1(){
+        url = "/web/broadcast.html?comicId="+comicId2;//此处拼接内容
+        window.location.href = url;
+      } });
+    $(function(){
+      var comicId3 = data[list[2]].comicId;
+      $("#href3").on("click",function(){
+        jump1();
+      });
+      function jump1(){
+        url = "/web/broadcast.html?comicId="+comicId3;//此处拼接内容
+        window.location.href = url;
+      } });
+    $(function(){
+      var comicId4= data[list[3]].comicId;
+      $("#href4").on("click",function(){
+        jump1();
+      });
+      function jump1(){
+        url = "/web/broadcast.html?comicId="+comicId4;//此处拼接内容
+        window.location.href = url;
+      } });
+    $(function(){
+      var comicId5 = data[list[4]].comicId;
+      $("#href5").on("click",function(){
+        jump1();
+      });
+      function jump1(){
+        url = "/web/broadcast.html?comicId="+comicId5;//此处拼接内容
+        window.location.href = url;
+      } });
+    $(function(){
+      var comicId6 = data[list[5]].comicId;
+      $("#href6").on("click",function(){
+        jump1();
+      });
+      function jump1(){
+        url = "/web/broadcast.html?comicId="+comicId6;//此处拼接内容
+        window.location.href = url;
+      } });
+  })
+
+  //循环创建一个数组的函数
+  function randomArr(maxcount){
+    var arr = [];
+    for(var i=0;i<maxcount;i++){
+      arr.push(i)
+    }
+    return arr;
+  }
+
+
+  //取出随机数, maxNum为 取出随机数的个数
+  function RandomNumBoth(arr,maxNum){
+    var numArr = [];
+    //最大的循环次数
+    var arrLength = arr.length;
+    for(var i = 0;i<arrLength;i++){
+      //获取arr的长度
+      var Rand = arr.length
+      //取出随机数
+      var number = Math.floor(Math.random()*arr.length); //生成随机数num
+      //往新建的数组里面传入数值
+      numArr.push(arr[number]);
+      //传入一个删除一个，避免重复
+      arr.splice(number,1);
+      if(arr.length <= arrLength-maxNum){
+        return numArr;
+      }
+    }
+  }
+  // console.log(arr)
+// alert(RandomNumBoth(arr,10))
+
+
+
 </script>
+
 </html>

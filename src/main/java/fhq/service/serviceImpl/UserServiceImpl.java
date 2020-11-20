@@ -1,7 +1,6 @@
 package fhq.service.serviceImpl;
 
 import fhq.mapper.UserMapper;
-import fhq.pojo.Advice;
 import fhq.pojo.User;
 import fhq.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,10 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -138,9 +140,10 @@ public class UserServiceImpl implements UserService {
             }
         }
 
+    @Override
     public Map<String, Object> toUpdatePassword(String oldPassword, String newPassword,
                                                 String confirmPassword,HttpServletRequest request) {
-        Map<String,Object> map=new HashMap<String, Object>();
+        Map<String,Object> map=new HashMap<>();
         //非空判断
         if (oldPassword==null||"".equals(oldPassword)){
             map.put("state",100);
@@ -199,15 +202,17 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public User findUserInfoByUsername(String username) {
         User user = userMapper.findUserInfoByUsername(username);
         return user;
     }
 
+    @Override
     public Map<String, Object> modifyUserByName(String userName, String address, String tel, String sex,
                                                 String birthday,String edu,String signature,String industry,String email) {
 
-        Map<String,Object> map=new HashMap<String, Object>();
+        Map<String,Object> map=new HashMap<>();
         if (birthday==""){
         birthday="1970-01-01";
         }
@@ -247,8 +252,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
     public Map<String, Object> uploadFace(MultipartFile file, HttpServletRequest request) {
-        Map<String,Object> map=new HashMap<String, Object>();
+        Map<String,Object> map=new HashMap<>();
         //参数判断
         if (file==null||"".equals(file)){
             map.put("msg","请选择上传文件");

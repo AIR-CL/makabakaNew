@@ -1,11 +1,13 @@
 package fhq.service;
 
+import fhq.pojo.User;
+import org.springframework.web.multipart.MultipartFile;
+
 import fhq.pojo.Advice;
 import fhq.pojo.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Map;
 
 //用户模块业务层接口
@@ -29,4 +31,5 @@ public interface UserService {
     Map<String,Object> submitAdvice(Integer userId,String adviceType,String adviceTitle,String adviceContent);
     //查询留言
     List<Advice> selectAdvice(String adviceType);
+
 }
