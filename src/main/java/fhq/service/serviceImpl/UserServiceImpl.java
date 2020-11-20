@@ -1,6 +1,7 @@
 package fhq.service.serviceImpl;
 
 import fhq.mapper.UserMapper;
+import fhq.pojo.Advice;
 import fhq.pojo.User;
 import fhq.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -129,6 +127,7 @@ public class UserServiceImpl implements UserService {
                 map.put("state",200);
                 map.put("msg","登陆成功!!! ╮(￣▽ ￣)╭ ");
                 //将用户名绑定到session中
+                req.getSession().setAttribute("userId",user.getUserId());
                 req.getSession().setAttribute("username",user.getUserName());
                 req.getSession().setAttribute("salt",user.getSalt());
                 return map;
@@ -320,6 +319,31 @@ public class UserServiceImpl implements UserService {
             return map;
         }
 
+    }
+    //提交留言
+    @Override
+    public Map<String, Object> submitAdvice(Integer userId, String adviceType, String adviceTitle, String adviceContent) {
+        Advice advice=new Advice();
+        advice.setUserId(userId);
+        advice.setAdviceType(adviceType);
+        advice.setAdviceTitle(adviceTitle);
+        advice.setAdviceContent(adviceContent);
+        Map<String,Object> map=new HashMap<>();
+        System.out.println(advice);
+        int i = userMapper.submitAdvice(advice);
+        System.out.println("i==="+i);
+        if(i==1){
+            map.put("msg","留言成功");
+        }else {
+            map.put("msg","留言失败");
+        }
+        return map;
+    }
+    //查询留言
+    @Override
+    public List<Advice> selectAdvice(String adviceType) {
+        List<Advice> advice = userMapper.selectAdvice(adviceType);
+        return advice;
     }
 
 

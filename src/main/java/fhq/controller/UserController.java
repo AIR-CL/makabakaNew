@@ -1,5 +1,7 @@
 package fhq.controller;
 
+import fhq.pojo.Advice;
+import fhq.pojo.User;
 import fhq.pojo.User;
 import fhq.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -54,6 +63,8 @@ public class UserController {
     public String toAdvicePage(){
         return "web/advice";
     }
+
+
     @PostMapping("/checkUsername")
     @ResponseBody//将返回值转成json数据
     public Map<String,Object> checkUsername(String username){
@@ -99,11 +110,14 @@ public class UserController {
     @PostMapping("/modifyUserInfoByUsername")
     @ResponseBody
     public  Map<String,Object> modifyUserInfoByName(String userName, String address, String tel, String sex,
-                                                    String birthday,String edu,String signature,String industry,String email){
-        Map<String, Object> map = userService.modifyUserByName(userName,address,tel,sex,
-                birthday,edu,signature,industry,email);
+                                                    String birthday,String edu,String signature,String industry,String email) {
+        Map<String, Object> map = userService.modifyUserByName(userName, address, tel, sex,
+                birthday, edu, signature, industry, email);
         return map;
     }
+
+
+
     //头像上传
     @PostMapping("/toUpload")
     @ResponseBody
@@ -112,5 +126,48 @@ public class UserController {
         Map<String, Object> map = userService.uploadFace(file, request);
         return map;
     }
+
+
+
+
+
+    //留言类型设置
+    @PostMapping("setType")
+    @ResponseBody
+    public Map<String,Object> setType(String type,HttpSession session){
+        session.setAttribute("type",type);
+        Map<String,Object> map=new HashMap<>();
+        String result=(String) session.getAttribute("type");
+        System.out.println(result);
+        if (result!=null){
+            map.put("msg","设置成功！");
+
+        }else {
+            map.put("msg","设置失败！");
+        }
+
+        return  map;
+
+    }
+    //提交留言
+    @PostMapping("/submitAdvice")
+    @ResponseBody
+    public Map<String,Object> submitAdvice(String adviceTitle,String adviceContent,HttpSession session){
+        Integer userId=1;
+        //设置默认值
+        String adviceType=(String) session.getAttribute("type");
+        Map<String, Object> map = userService.submitAdvice(userId, adviceType, adviceTitle, adviceContent);
+        return map;
+    }
+    //查询留言
+    @PostMapping("/selectAdvice")
+    @ResponseBody
+    public List<Advice> selectAdvice(String type){
+        String adviceType=type;
+        List<Advice> advice = userService.selectAdvice(adviceType);
+        return advice;
+
+    }
+
 
 }

@@ -218,7 +218,10 @@
             type: "post",
             success:function (data) {
               if (data.state == 200) {
-                alert(data.msg);
+                alert(data.msg,'',function () {
+                  location.reload();
+                });
+
               } else {
                 alert(data.msg);
               }

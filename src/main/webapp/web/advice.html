@@ -21,6 +21,7 @@
     <script type="text/javascript">var cms = {root:"/",public:"/tpl/"};</script>
 
 </head>
+
 <body class="center_body"style="background-image: url(../images/picture/08.jpg);background-size:cover;background-attachment: fixed">
 
 
@@ -103,15 +104,15 @@
             <div class="user-box clearfix" id="data">
                 <div class="user-center-title pt-0 pl-0">
                     <ul class="user_nav_get" id="pids">
-                        <li class="active" data-url="/index.php?s=user-center-gb-op-1.html">全部留言</li>
-                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-1-p-1.html">其他留言<span></span></li>
-                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-2-p-1.html">影片报错<span></span></li>
-                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-3-p-1.html">网站建议<span></span></li>
-                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-4-p-1.html">访问故障<span></span></li>
+                        <li class="active" data-url="/index.php?s=user-center-gb-op-1.html" onclick="selectAdvice()">全部留言</li>
+                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-1-p-1.html" onclick="selectAdvice('其他')">其他留言<span></span></li>
+                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-2-p-1.html" onclick="selectAdvice('报错')">影片报错<span></span></li>
+                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-3-p-1.html" onclick="selectAdvice('建议')">网站建议<span></span></li>
+                        <li  data-url="/index.php?s=user-center-gb-op-1-cid-4-p-1.html" onclick="selectAdvice('故障')">访问故障<span></span></li>
                     </ul>
-                    <button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">发布留言</button>
+                    <button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#exampleModal" onclick="setDefault()" data-whatever="@mdo">发布留言</button>
                 </div>
-                <div class="loading text-center">留言加载中...</div>
+                <div class="loading text-center">留言加载中.<table id="tb"></table></div>
             </div>
         </div>
     </div>
@@ -132,25 +133,25 @@
                     <div class="form-group">
                         <div class="col-md-12">
                             <ul class="user-gb-type clearfix" id="gb_types">
-                                <li val="2"><a href="javascript:void(0);" class="text-overflow">报错</a></li>
-                                <li val="3"><a href="javascript:void(0);" class="text-overflow">故障</a></li>
-                                <li val="4"><a href="javascript:void(0);" class="text-overflow">建议</a></li>
-                                <li val="1" class="active"><a href="javascript:void(0);" class="text-overflow">其他</a></li>
+                                <li val="2"><a href="javascript:void(0);" class="text-overflow" id="reportError" onclick="getType(1)">报错</a></li>
+                                <li val="3"><a href="javascript:void(0);" class="text-overflow" id="fault" onclick="getType(2)">故障</a></li>
+                                <li val="4"><a href="javascript:void(0);" class="text-overflow" id="advise" onclick="getType(3)">建议</a></li>
+                                <li val="1" class="active"><a href="javascript:void(0);" class="text-overflow" id="other" onclick="getType(4)">其他</a></li>
                             </ul>
                         </div>
                     </div>
                     <input type="hidden" name="gb_cid" id="gb_type" value="1">
                     <div class="form-group">
                         <div class="col-md-12">
-                            <input class="form-control txt" name="gb_title" id="gb_title" type="text" placeholder="留言标题" required="">
+                            <input class="form-control txt" name="gb_title" id="adviceTitle" type="text" placeholder="留言标题" required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-12">
-                            <textarea cols="40" class="form-control txt" name="gb_content" id="gb_content" rows="5" placeholder="输入留言内容" required=""></textarea>
+                            <textarea cols="40" class="form-control txt" name="gb_content"  rows="5" placeholder="输入留言内容" required="" id="adviceContent"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success" id="add-modal-submit">提交留言</button>
+                    <button type="submit" class="btn btn-success" id="add-modal-submit" onclick="submitAdivce()">提交留言</button>
                 </form>
             </div>
 
@@ -159,6 +160,97 @@
 </div>
 
 
+<script type="text/javascript">
+    var tb=document.getElementById("tb");
+    function setDefault() {
+        getType(4);
+
+    }
+
+    //留言类型选择
+    function getType(number) {
+        if (number==1){
+            var type=$("#reportError").html();
+        }else if (number==2){
+            var type=$("#fault").html();
+
+        }else if (number==3){
+            var type=$("#advise").html();
+        }
+        else if (number==4){
+            var type=$("#other").html();
+        }
+         $.ajax({
+            url:"/user/setType",
+             type:"post",
+             data:{type: type},
+             dataType:"json",
+             success:function (data) {
+             },
+             error:function () {alert("未获取数据")
+             }
+         })
+    }
+    //提交留言
+    function submitAdivce() {
+        var adviceTitle=$("#adviceTitle").val();
+        var adviceContent=$("#adviceContent").val();
+
+
+          $.ajax({
+              type:"post",
+              data:{adviceTitle:adviceTitle,adviceContent:adviceContent},
+              dataType: "json",
+              url:"/user/submitAdvice",
+            success:function (data) {
+                alert(data.msg)
+            }
+
+        })
+
+    }
+   /*复现留言*/
+   function selectAdvice(type) {
+    if(type!=null){
+        var type=type;
+    }
+       $.ajax({
+            url:"/user/selectAdvice",
+            type:"post",
+            dataType:"json",
+            data:{type:type},
+       success:function (data) {
+           var str="<tr>\n" +
+               "      <td>类型</td>\n" +
+               "      <td>标题</td>\n" +
+               "      <td>内容</td>\n" +
+               "    </tr>"
+           for(i in data){
+               str += "<tr>" +
+                   "<td>adviceType</td>" +
+                   "<td>adviceTitle</td>" +
+                   "<td><textarea>adviceContent</textarea></td>" +
+                   "</tr>";
+               str=str.replace("adviceType",data[i].adviceType);
+               str=str.replace("adviceTitle",data[i].adviceTitle);
+               str=str.replace("adviceContent",data[i].adviceContent);
+           }
+           tb.innerHTML=str;
+
+       }
+
+
+   })
+
+   }
+    $(document).ready(selectAdvice())
+
+
+
+
+
+</script>
+</body>
 
 </body>
 <script>

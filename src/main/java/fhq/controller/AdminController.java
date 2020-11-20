@@ -100,7 +100,7 @@ public class AdminController {
 
     }
     //获取session
-    @GetMapping("getSession")
+    @GetMapping("/getSession")
     @ResponseBody
     public Map<String,Object> getSession(HttpSession session){
         //获取当前页
@@ -115,7 +115,7 @@ public class AdminController {
     }
 
     //模糊getSession
-    @GetMapping("getLikeSession")
+    @GetMapping("/getLikeSession")
     @ResponseBody
     public Map<String,Object> getLikeSession(Integer userId,String userName,Integer userVip,Integer loPh,Integer hiPh,HttpSession session){
         //获取当前页面

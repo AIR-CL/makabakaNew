@@ -1,8 +1,13 @@
 package fhq.mapper;
 
+import fhq.pojo.Advice;
 import fhq.pojo.User;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 //用户模块持久层
 public interface UserMapper {
     //根据用户名查询当前用户信息
@@ -19,5 +24,9 @@ public interface UserMapper {
     int modifyUserInfoByUsername(User user);
     //上传头像
     int uploadFace(@Param("username") String username,@Param("face") String face);
+    //提交留言
+    int submitAdvice(Advice advice);
+    //查询留言
+     List<Advice> selectAdvice(String adviceType);
 
 }
