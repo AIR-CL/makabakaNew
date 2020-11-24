@@ -128,5 +128,10 @@ public class AdminController {
 
         return map;
     }
+    //去管理员留言界面
+    @GetMapping("/toIndex3")
+    public String toIndex3(){
+        return "/controlHtml/index3";
+    }
 
 }

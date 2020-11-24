@@ -25,6 +25,11 @@
     <script src="https://zz.bdstatic.com/linksubmit/push.js" async></script>
     <script type="text/javascript">var cms = {root:"/",murl:"https://m.halitv.com/detail/140.html",public:"/tpl/",sid:"1",cid:"62",id:"140"};</script>
     </head>
+<style>
+    #gets{
+        display: none;
+    }
+</style>
 <body style="background-image: url(../images/picture/01.jpg);background-size:cover;background-attachment: fixed">
 <header id="header">
     <div id="page_top">
@@ -206,12 +211,12 @@
                             <span>语言：日语</span></p>
                         <p><span>最后更新：1天前</span></p></div>
                     <div class="txt-btn">
-                        <div class="sect-btn-sc layui-btn" id="love" data-type="love" data-id="140" data-cid="62">
-                            <i class="glyphicon glyphicon-star-empty">&#xe600;</i> 收藏
+                        <div class="sect-btn-sc layui-btn" id="love" onclick="subscribe()">
+                            <i class="glyphicon glyphicon-star-empty"   >&#xe600;</i> 收藏
                         </div>
-                        <div class="sect-show-sc">
-                            <div class="cancel layui-btn" id="yeslove" data-type="love" data-id="140" data-cid="62">
-                                <i class="glyphicon glyphicon-star">&#xe658;</i> 已收
+                        <div class="sect-show-sc" id="gets">
+                            <div class="sect-btn-sc layui-btn" id="yeslove" onclick="cancelSubscribe()">
+                                <i class="glyphicon glyphicon-star" >&#xe658;</i> 已收
                         	</div>
                         </div>
                     <div class="sect-btn-dy layui-btn" id="remind" data-type="remind" data-id="140" data-cid="62">
@@ -331,6 +336,88 @@ var _hmt = _hmt || [];
     //根据用户名查找用户信息
     $.get("../user/findUserInfo",function (data) {
         $("#avatar").attr("src",data.userFace);
+
+    })
+
+
+
+    /*收藏*/
+    function subscribe() {
+        $('#love').hide()
+        $('#gets').show()
+        var url = location.search; //获取url中"?"符后的字串
+        if (url.indexOf("?") != -1) {  //判断是否有参数
+            var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+            strs = str.split("=");  //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+            var comicId = strs[1];     //直接弹出第一个参数 （如果有多个参数 还要进行循环的）
+        }
+
+        $.ajax({
+            url:"/subscribe/subscribeComic",
+            type:"post",
+            datatype: "json",
+            data:{comicId: comicId},
+            success:function (data) {
+                if(data.state==200){
+                    alert(data.msg);
+                }else if(data.state=201){
+                    alert(data.msg);
+                }
+            }
+        })
+
+    }
+    /*取消收藏*/
+    function cancelSubscribe(){
+ 
+        var url = location.search; //获取url中"?"符后的字串
+        if (url.indexOf("?") != -1) {  //判断是否有参数
+            var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+            strs = str.split("=");  //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+            var comicId = strs[1];     //直接弹出第一个参数 （如果有多个参数 还要进行循环的）
+        }
+        $.ajax({
+            url:"/subscribe/cancelSubscribe",
+            type:"post",
+            datatype: "json",
+            data:{comicId: comicId},
+            success:function (data) {
+                if(data.state==200){
+                    alert(data.msg);
+                }
+            }
+        })
+    }
+    function selectSubscribe(){
+        var url = location.search; //获取url中"?"符后的字串
+        if (url.indexOf("?") != -1) {  //判断是否有参数
+            var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+            strs = str.split("=");  //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+            var comicId = strs[1];     //直接弹出第一个参数 （如果有多个参数 还要进行循环的）
+        }
+        $.ajax({
+            url:"/subscribe/selectSubscribe",
+            type:"post",
+            datatype:"json",
+            data:{comicId:comicId},
+            success:function (data) {
+                if (data.state==200){
+
+                    $('#love').show()
+                    $('#gets').hide()
+                }else if(data.state==201){
+
+                    $('#love').hide()
+                    $('#gets').show()
+                }
+            }
+        })
+    }
+$(document).ready(selectSubscribe());
+
+    $('#gets').click(function () {
+        $('#love').show()
+        $('#gets').hide()
 
     })
 </script>

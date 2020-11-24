@@ -111,8 +111,8 @@
                         <li  data-url="/index.php?s=user-center-gb-op-1-cid-4-p-1.html" onclick="selectAdvice('故障')">访问故障<span></span></li>
                     </ul>
                     <button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#exampleModal" onclick="setDefault()" data-whatever="@mdo">发布留言</button>
-                </div>
-                <div class="loading text-center">留言加载中.<table id="tb"></table></div>
+                </div><table id="tb" class="table table-hover table-striped"style="font-family: 'RuiHei Bauhaus Kr'"></table>
+                <div class="loading text-center"></div>
             </div>
         </div>
     </div>
@@ -221,15 +221,15 @@
             data:{type:type},
        success:function (data) {
            var str="<tr>\n" +
-               "      <td>类型</td>\n" +
-               "      <td>标题</td>\n" +
-               "      <td>内容</td>\n" +
+               "      <td width='20%'><span style='color:red;font-size:20px'>类型&nbsp;&nbsp;</span></td>\n" +
+               "      <td width='30%'><span style='color:red;font-size:20px'>标题&nbsp;&nbsp;</span></td>\n" +
+               "      <td width='50%'><span style='color:red;font-size:20px'>内容&nbsp;&nbsp;</span></td>\n" +
                "    </tr>"
            for(i in data){
                str += "<tr>" +
-                   "<td>adviceType</td>" +
+                   "<td><span style='color: #ea759f;font-size: 15px'>adviceType</span></td>" +
                    "<td>adviceTitle</td>" +
-                   "<td><textarea>adviceContent</textarea></td>" +
+                   "<td>adviceContent</td>" +
                    "</tr>";
                str=str.replace("adviceType",data[i].adviceType);
                str=str.replace("adviceTitle",data[i].adviceTitle);

@@ -42,7 +42,7 @@ public class ComicController {
     //跳转到详情页面
     @GetMapping("/toBroadcastPage")
     public String toBroadcastPage(){
-        return "/web/broadcast";
+        return "/web/Bbroadcast";
     }
     //分页查询所有
     @GetMapping("/findAllComic")

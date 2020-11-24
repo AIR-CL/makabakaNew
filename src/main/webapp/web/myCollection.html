@@ -103,10 +103,17 @@
             <div class="user-box clearfix" id="data">
                 <div class="user-center-title pt-0">
                     <ul class="user_nav_get" id="pids">
-                        <li class="active" data-url="/index.php?s=user-center-love-op-1.html">全部收藏</li>
+                        <li class="active" data-url="/index.php?s=user-center-love-op-1.html" onclick="selectAllCollection()">全部收藏</li>
+
                     </ul>
                     <div class="more pull-right">共<span class="text-color">“<span id="total">0</span>”</span>条数据</div></div>
-                <div class="loading text-center">收藏加载中...</div></div>
+                <div><table class="table" id="tb"></table></div>
+
+                <div class="loading text-center"></div>
+
+            </div>
+
+
             <div class="user-box clearfix mt20">
                 <div class="user-center-title pt-0">
                     <h2 class="text-color">热门收藏</h2>
@@ -132,5 +139,45 @@ zanpian.user.hot(hoturl);
         $("#userBig").html(data.userName)
 
     })
+
+
+
+</script>
+<script>
+    var tb=document.getElementById("tb");
+    function selectAllCollection() {
+       $.ajax({
+           url:"../subscribe/selectAllSubscribe",
+           dataType:"json",
+           type:"post",
+           success:function (data) {
+               var str="<tr>\n" +
+                   "      <td style='width: 20%;font-family: 华文楷体;font-size: large'>类型</td>\n" +
+                   "      <td style='width: 30px;font-family: 华文楷体;font-size: large'>名称</td>\n" +
+                   "      <td style='width: 50%'>&nbsp;</td>\n" +
+
+                   "    </tr>"
+               for(i in data){
+                   str += "<tr>" +
+                       "<td>comicType</td>" +
+                       "<td>comicName</td>" +
+                       "<td><button class='btn btn-success' style='border-radius: 10px' onclick='toUpdateUser(#{userId})'>去看看</button><button style='margin-left:160px;border-radius: 10px' class='btn btn-danger' onclick='deleteUser(#{id})'>取消收藏</button></a></td>"+
+                       "</tr>";
+                   str=str.replace("comicType",data[i].comicType);
+                   str=str.replace("comicName",data[i].comicName);
+               }
+               tb.innerHTML=str;
+           },
+           error:function () {
+               alert("失败！！！！")
+           }
+
+       })
+    }
+
+
+$(document).ready(selectAllCollection());
+
+
 </script>
 </body></html>
